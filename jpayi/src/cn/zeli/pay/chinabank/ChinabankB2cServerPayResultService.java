@@ -34,7 +34,6 @@ public class ChinabankB2cServerPayResultService implements PayResultService {
 	/* (non-Javadoc)
 	 * @see cn.zeli.pay.PayResultService#doVerifyFail(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, cn.zeli.pay.PayResultObject)
 	 */
-	@Override
 	public boolean doVerifyFail(HttpServletRequest request,
 			HttpServletResponse response, PayResultObject pro) {
 		writeString(response, "error");
@@ -44,7 +43,6 @@ public class ChinabankB2cServerPayResultService implements PayResultService {
 	/* (non-Javadoc)
 	 * @see cn.zeli.pay.PayResultService#doSuccess(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, cn.zeli.pay.PayResultObject)
 	 */
-	@Override
 	public boolean doSuccess(HttpServletRequest request,
 			HttpServletResponse response, PayResultObject pro) {
 		writeString(response, "ok");
@@ -54,7 +52,6 @@ public class ChinabankB2cServerPayResultService implements PayResultService {
 	/* (non-Javadoc)
 	 * @see cn.zeli.pay.PayResultService#doFail(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, cn.zeli.pay.PayResultObject)
 	 */
-	@Override
 	public boolean doFail(HttpServletRequest request,
 			HttpServletResponse response, PayResultObject pro) {
 		writeString(response, "ok");
@@ -64,7 +61,6 @@ public class ChinabankB2cServerPayResultService implements PayResultService {
 	/* (non-Javadoc)
 	 * @see cn.zeli.pay.PayResultService#payResultObject(javax.servlet.http.HttpServletRequest)
 	 */
-	@Override
 	public PayResultObject payResultObject(HttpServletRequest request) {
 
 		ChinabankPayResultObject o = new ChinabankPayResultObject();

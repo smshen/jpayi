@@ -126,7 +126,6 @@ public class IcbcB2cPayResultObject extends AbstractPayResultObject {
 	 * 
 	 * @see cn.zeli.pay.PayResultObject#success()
 	 */
-	@Override
 	public boolean success() {
 		// 参考 tranStat
 		// 1-“交易成功，已清算”；
@@ -136,7 +135,6 @@ public class IcbcB2cPayResultObject extends AbstractPayResultObject {
 		return "1".equals(tranStat.trim());
 	}
 
-	@Override
 	public String bankInfo() {
 		return "ICBC|B2C";
 	}
@@ -146,7 +144,6 @@ public class IcbcB2cPayResultObject extends AbstractPayResultObject {
 	 * 
 	 * @see cn.zeli.pay.PayResultObject#verify()
 	 */
-	@Override
 	public boolean verify() {
 		String s = new StringBuffer().append(interfaceName).append("=")
 				.append(interfaceName).append("&").append(interfaceVersion)
@@ -194,7 +191,6 @@ public class IcbcB2cPayResultObject extends AbstractPayResultObject {
 	 * 
 	 * @see cn.zeli.pay.PayResultObject#orderId()
 	 */
-	@Override
 	public String orderId() {
 		return orderid;
 	}
@@ -204,7 +200,6 @@ public class IcbcB2cPayResultObject extends AbstractPayResultObject {
 	 * 
 	 * @see cn.zeli.pay.PayResultObject#orderAmount()
 	 */
-	@Override
 	public String orderAmount() {
 		return amount;
 	}

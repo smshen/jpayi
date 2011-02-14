@@ -172,17 +172,14 @@ public class IcbcB2bPayResultObject extends AbstractPayResultObject {
 	/* (non-Javadoc)
 	 * @see cn.zeli.pay.PayResultObject#orderId()
 	 */
-	@Override
 	public String orderId() {
 		return ContractNo;
 	}
 
-	@Override
 	public String orderAmount() {
 		return ContractAmt;
 	}
 
-	@Override
 	public String bankInfo() {
 		return "ICBC|B2C";
 	}
@@ -190,7 +187,6 @@ public class IcbcB2bPayResultObject extends AbstractPayResultObject {
 	/* (non-Javadoc)
 	 * @see cn.zeli.pay.AbstractPayResultObject#success()
 	 */
-	@Override
 	public boolean success() {
 		// 参考字段PayStatusZHCN值的定义
 		if (null != PayStatusZHCN && "".equals(PayStatusZHCN)) {
@@ -202,7 +198,6 @@ public class IcbcB2bPayResultObject extends AbstractPayResultObject {
 	/* (non-Javadoc)
 	 * @see cn.zeli.pay.AbstractPayResultObject#verify()
 	 */
-	@Override
 	public boolean verify() {
 		
 		// 取原始数据

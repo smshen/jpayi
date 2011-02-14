@@ -24,7 +24,6 @@ public class AbcB2cPayObject extends PaymentRequest implements PayObject {
 	 */
 	private static final long serialVersionUID = 501290597072263589L;
 
-	@Override
 	public ValidationMsg validation() {
 		ValidationMsg msg = new ValidationMsg(true);
 		try {
@@ -39,7 +38,6 @@ public class AbcB2cPayObject extends PaymentRequest implements PayObject {
 		}
 	}
 
-	@Override
 	public String generateFormInputsHtml() {
 		return null;
 	}

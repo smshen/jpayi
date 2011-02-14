@@ -28,7 +28,6 @@ public class ChinabankPayResultObject extends AbstractPayResultObject {
 	private String remark1;
 	private String remark2;
 
-	@Override
 	public boolean success() {
 		// 20（表示支付成功）
 		// 30（表示支付失败）
@@ -38,7 +37,6 @@ public class ChinabankPayResultObject extends AbstractPayResultObject {
 		return false;
 	}
 
-	@Override
 	public boolean verify() {
 		// XXX key 值的注入？
 		String md5 = EncodeUtil.MD5Encode(new StringBuffer()
@@ -52,17 +50,14 @@ public class ChinabankPayResultObject extends AbstractPayResultObject {
 		return v_md5str.equals(md5.toUpperCase());
 	}
 
-	@Override
 	public String orderId() {
 		return v_oid;
 	}
 
-	@Override
 	public String orderAmount() {
 		return v_amount;
 	}
 
-	@Override
 	public String bankInfo() {
 		return "chinabank|B2C";
 	}
