@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+  <display-name>jpayi</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  <servlet>
+    <description>Bank Pay Interface Notify platform</description>
+    <display-name>NotifyServlet</display-name>
+    <servlet-name>NotifyServlet</servlet-name>
+    <servlet-class>cn.zeli.pay.NotifyServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>NotifyServlet</servlet-name>
+    <url-pattern>/pay/notify/*</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description>Auto Pay Servlet</description>
+    <display-name>AutoPayServlet</display-name>
+    <servlet-name>AutoPayServlet</servlet-name>
+    <servlet-class>cn.zeli.pay.AutoPayServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AutoPayServlet</servlet-name>
+    <url-pattern>/AutoPayServlet</url-pattern>
+  </servlet-mapping>
+</web-app>
