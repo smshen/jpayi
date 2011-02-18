@@ -123,7 +123,7 @@ public class NotifyServlet extends HttpServlet {
 			
 			Map<String, String> params = new HashMap<String, String>();
 			params.put(PayConfig.PAY_RESULT_DO_PARAM_ORDERID, pro.orderId());
-			params.put(PayConfig.PAY_RESULT_DO_PARAM_ORDERAMOUNT, pro.orderAmount());
+			params.put(PayConfig.PAY_RESULT_DO_PARAM_ORDERAMOUNT, pro.payAmount());
 			params.put(PayConfig.PAY_RESULT_DO_PARAM_BANK, pro.bankInfo());
 			params.put(PayConfig.PAY_RESULT_DO_PARAM_CONTENT, pro.toString());// XXX 将pro对象转换成json或者序列化
 
@@ -204,7 +204,7 @@ public class NotifyServlet extends HttpServlet {
 					"<html><head><title>支付结果</title></head><body>")
 					.append("<h1>").append(pro.verify() ? (pro.success() ? "支付成功" : "支付失败") : "支付结果验证失败").append("</h1>")
 					.append("<p>订单号：").append(pro.orderId()).append("</p>")
-					.append("<p>金额：").append(pro.orderAmount()).append("</p>")
+					.append("<p>交易金额：").append(pro.payAmount()).append("</p>")
 					.append("<p>银行	：").append(pro.bankInfo()).append("</p>")
 					.append("</body></html>")
 					.toString();

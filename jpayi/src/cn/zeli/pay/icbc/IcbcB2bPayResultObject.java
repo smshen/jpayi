@@ -176,7 +176,7 @@ public class IcbcB2bPayResultObject extends AbstractPayResultObject {
 		return ContractNo;
 	}
 
-	public String orderAmount() {
+	public String payAmount() {
 		return ContractAmt;
 	}
 

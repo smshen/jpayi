@@ -30,10 +30,12 @@ public interface PayResultObject extends Serializable {
 	public String orderId();
 	
 	/**
-	 * 订单金额
+	 * 交易金额.
+	 * 注意：交易金额不一定等于订单金额。对于B2B支付，此费用通常指之际支付金额。此金额可能包括 订单金额+交易费用（手续费等）<br/>
+	 * 扩展：目前更加银行返回支付金额为主。如果要更细化，则可以再划分具体金额。当前版本不实现。
 	 * @return
 	 */
-	public String orderAmount();
+	public String payAmount();
 	
 	/**
 	 * 银行信息，可以包括银行基本信息和业务基本信息

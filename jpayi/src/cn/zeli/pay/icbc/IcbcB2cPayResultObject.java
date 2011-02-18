@@ -200,7 +200,7 @@ public class IcbcB2cPayResultObject extends AbstractPayResultObject {
 	 * 
 	 * @see cn.zeli.pay.PayResultObject#orderAmount()
 	 */
-	public String orderAmount() {
+	public String payAmount() {
 		return amount;
 	}
 
