@@ -10,8 +10,8 @@ import cn.zeli.util.DateUtil;
 import cn.zeli.util.FileUtil;
 
 /**
- * 工商银行B2C网银支付对象. 参考文档：《中国工商银行网上银行B2C在线支付接口说明.doc》
- * 
+ * 工商银行B2C网银支付对象. 参考文档：《中国工商银行网上银行B2C在线支付接口说明.doc》<br/>
+ * // 取最新版本1.0.0.11。参考文档《中国工商银行网上银行新B2C在线支付接口说明V1.0.0.11.doc》
  * @author Administrator
  * 
  */
@@ -34,6 +34,14 @@ public class IcbcB2cPayObject extends AbstractPayObject {
 	@PayField(required = true, max = 15)
 	private String interfaceVersion = "1.0.0.0";
 
+//	/**
+//	 * 交易数据.
+//	 * 从版本1.0.0.11上增加
+//	 * 
+//	 */
+//	@PayField(required = true)
+//	private String tranData;
+//	
 	/**
 	 * [订单号] MAX(30)
 	 * 必输，签名，客户支付后商户网站产生的一个唯一的定单号，该订单号应该在相当长的时间内不重复。工行通过订单号加订单日期来唯一确认一笔订单的重复性。
@@ -358,7 +366,7 @@ public class IcbcB2cPayObject extends AbstractPayObject {
 		byte[] bs = null;
 		try {// TODO 将 key 路径 和 password 均在配置里面读取
 			bs = ReturnValue.sign(s.getBytes(), s.getBytes().length, FileUtil.file2Byte(
-					FileUtil.getClasspath() + "/cert/icbc/user.key"), "11111111".toCharArray());
+					FileUtil.getClasspath() + "/cert/icbc/b2c/lxhg.key"), "123456".toCharArray());
 			return new String(ReturnValue.base64enc(bs));
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -370,12 +378,27 @@ public class IcbcB2cPayObject extends AbstractPayObject {
 		// merCert为（用测试证书user.crt）
 		// BASE64编码
 		return new String(ReturnValue.base64enc(FileUtil.file2Byte(
-				FileUtil.getClasspath() + "/cert/icbc/user.crt")));// TODO 将 key 路径 在配置里面读取
+				FileUtil.getClasspath() + "/cert/icbc/b2c/lxhg.crt")));// TODO 将 key 路径 在配置里面读取
 	}
 
 	public static void main(String[] args) {
 		System.out.println(new IcbcB2cPayObject().sign());
 //		System.out.println(new IcbcB2CPayObject().cert());
+	}
+
+	@Override
+	public String toString() {
+		return "IcbcB2cPayObject [amount=" + amount + ", carriageAmt="
+				+ carriageAmt + ", curType=" + curType + ", goodsID=" + goodsID
+				+ ", goodsName=" + goodsName + ", goodsNum=" + goodsNum
+				+ ", interfaceName=" + interfaceName + ", interfaceVersion="
+				+ interfaceVersion + ", merAcct=" + merAcct + ", merCert="
+				+ merCert + ", merHint=" + merHint + ", merID=" + merID
+				+ ", merSignMsg=" + merSignMsg + ", merURL=" + merURL
+				+ ", notifyType=" + notifyType + ", orderDate=" + orderDate
+				+ ", orderid=" + orderid + ", remark1=" + remark1
+				+ ", remark2=" + remark2 + ", resultType=" + resultType
+				+ ", verifyJoinFlag=" + verifyJoinFlag + "]";
 	}
 
 }

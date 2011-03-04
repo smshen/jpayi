@@ -201,40 +201,42 @@ public class IcbcB2bPayResultObject extends AbstractPayResultObject {
 	public boolean verify() {
 		
 		// 取原始数据
-		String s = new StringBuffer().append(APIName).append("=").append(APIName)
-		.append("&").append(APIVersion).append("=").append(APIVersion)
-		.append("&").append(Shop_code).append("=").append(Shop_code)
-		.append("&").append(MerchantURL).append("=").append(APIName)
-		.append("&").append(Serial_no).append("=").append(Serial_no)
-		.append("&").append(PayStatusZHCN).append("=").append(PayStatusZHCN)
-		.append("&").append(TranErrorCode).append("=").append(TranErrorCode)
-		.append("&").append(TranErrorMsg).append("=").append(TranErrorMsg)
-		.append("&").append(ContractNo).append("=").append(ContractNo)
-		.append("&").append(ContractAmt).append("=").append(ContractAmt)
-		.append("&").append(Account_cur).append("=").append(Account_cur)
-		.append("&").append(JoinFlag).append("=").append(JoinFlag)
-		.append("&").append(ShopJoinFlag).append("=").append(ShopJoinFlag)
-		.append("&").append(CustJoinFlag).append("=").append(CustJoinFlag)
-		.append("&").append(CustJoinNumber).append("=").append(CustJoinNumber)
-		.append("&").append(SendType).append("=").append(SendType)
-		.append("&").append(TranTime).append("=").append(TranTime)
-		.append("&").append(NotifyTime).append("=").append(NotifyTime)
-		.append("&").append(Shop_acc_num).append("=").append(Shop_acc_num)
-		.append("&").append(PayeeAcct).append("=").append(PayeeAcct)
-		.append("&").append(PayeeName).append("=").append(PayeeName)
+		String s = new StringBuffer().append("APIName").append("=").append(APIName)
+		.append("&").append("APIVersion").append("=").append(APIVersion)
+		.append("&").append("Shop_code").append("=").append(Shop_code)
+		.append("&").append("MerchantURL").append("=").append(APIName)
+		.append("&").append("Serial_no").append("=").append(Serial_no)
+		.append("&").append("PayStatusZHCN").append("=").append(PayStatusZHCN)
+		.append("&").append("TranErrorCode").append("=").append(TranErrorCode)
+		.append("&").append("TranErrorMsg").append("=").append(TranErrorMsg)
+		.append("&").append("ContractNo").append("=").append(ContractNo)
+		.append("&").append("ContractAmt").append("=").append(ContractAmt)
+		.append("&").append("Account_cur").append("=").append(Account_cur)
+		.append("&").append("JoinFlag").append("=").append(JoinFlag)
+		.append("&").append("ShopJoinFlag").append("=").append(ShopJoinFlag)
+		.append("&").append("CustJoinFlag").append("=").append(CustJoinFlag)
+		.append("&").append("CustJoinNumber").append("=").append(CustJoinNumber)
+		.append("&").append("SendType").append("=").append(SendType)
+		.append("&").append("TranTime").append("=").append(TranTime)
+		.append("&").append("NotifyTime").append("=").append(NotifyTime)
+		.append("&").append("Shop_acc_num").append("=").append(Shop_acc_num)
+		.append("&").append("PayeeAcct").append("=").append(PayeeAcct)
+		.append("&").append("PayeeName").append("=").append(PayeeName)
 		.toString();
+		
+		System.out.println(s);
 		
 		// 调用API统一接口对签名数据进行BASE64解码，得到签名信息。
 		byte[] decSign = ReturnValue.base64dec(NotifySign.getBytes());
 		
 		// 证书公钥BASE64解码成功，此处是银行公钥
-		byte[] decCert = ReturnValue.base64dec(FileUtil.file2Byte(
-				FileUtil.getClasspath() + "/cert/icbc/测试公钥ebb2cpublic.crt"));
+		byte[] decCert = FileUtil.file2Byte(
+				FileUtil.getClasspath() + "/cert/icbc/b2b/bank.crt");
 		
 		// 调用API统一接口验证BASE64解码后得到的签名信息
 		try {
 			// 返回验签结果，返回“0”表示验签成功；返回不为“0”表示验签失败。
-			int r = ReturnValue.verifySign(s.getBytes(), s.getBytes().length, decSign, decCert);
+			int r = ReturnValue.verifySign(s.getBytes(), s.getBytes().length, decCert, decSign);
 			if (r == 0)
 				return true;
 		} catch (Exception e) {

@@ -145,38 +145,41 @@ public class IcbcB2cPayResultObject extends AbstractPayResultObject {
 	 * @see cn.zeli.pay.PayResultObject#verify()
 	 */
 	public boolean verify() {
-		String s = new StringBuffer().append(interfaceName).append("=")
-				.append(interfaceName).append("&").append(interfaceVersion)
-				.append("=").append(interfaceVersion).append("&")
-				.append(orderid).append("=").append(orderid).append("&")
-				.append(TranSerialNo).append("=").append(TranSerialNo)
-				.append("&").append(amount).append("=").append(amount)
-				.append("&").append(curType).append("=").append(curType)
-				.append("&").append(merID).append("=").append(merID)
-				.append("&").append(merAcct).append("=").append(merAcct)
-				.append("&").append(verifyJoinFlag).append("=")
-				.append(verifyJoinFlag).append("&").append(JoinFlag)
-				.append("=").append(JoinFlag).append("&").append(UserNum)
-				.append("=").append(UserNum).append("&").append(resultType)
-				.append("=").append(resultType).append("&").append(orderDate)
-				.append("=").append(orderDate).append("&").append(notifyDate)
-				.append("=").append(notifyDate).append("&").append(tranStat)
-				.append("=").append(tranStat).append("&").append(comment)
-				.append("=").append(comment).append("&").append(remark1)
-				.append("=").append(remark1).append("&").append(remark2)
+		String s = new StringBuffer().append("interfaceName").append("=").append(interfaceName)
+				.append("&").append("interfaceVersion").append("=").append(interfaceVersion)
+				.append("&").append("orderid").append("=").append(orderid)
+				.append("&").append("TranSerialNo").append("=").append(TranSerialNo)
+				.append("&").append("amount").append("=").append(amount)
+				.append("&").append("curType").append("=").append(curType)
+				.append("&").append("merID").append("=").append(merID)
+				.append("&").append("merAcct").append("=").append(merAcct)
+				.append("&").append("verifyJoinFlag").append("=").append(verifyJoinFlag)
+				.append("&").append("JoinFlag")
+				.append("=").append(JoinFlag).append("&").append("UserNum")
+				.append("=").append(UserNum).append("&").append("resultType")
+				.append("=").append(resultType).append("&").append("orderDate")
+				.append("=").append(orderDate).append("&").append("notifyDate")
+				.append("=").append(notifyDate).append("&").append("tranStat")
+				.append("=").append(tranStat).append("&").append("comment")
+				.append("=").append(comment).append("&").append("remark1")
+				.append("=").append(remark1).append("&").append("remark2")
 				.append("=").append(remark2).toString();
 
-		// 调用API统一接口对签名数据进行BASE64解码，得到签名信息。
-		byte[] decSign = ReturnValue.base64dec(signMsg.getBytes());
-		
-		// 证书公钥BASE64解码成功，此处是银行公钥
-		byte[] decCert = ReturnValue.base64dec(FileUtil.file2Byte(
-				FileUtil.getClasspath() + "/cert/icbc/测试公钥ebb2cpublic.crt"));
 		
 		// 调用API统一接口验证BASE64解码后得到的签名信息
 		try {
+			// 调用API统一接口对签名数据进行BASE64解码，得到签名信息。
+			byte[] decSign = ReturnValue.base64dec(signMsg.getBytes());//s.getBytes());
+			
+			// 证书公钥BASE64解码成功，此处是银行公钥
+//			byte[] decCert = ReturnValue.base64dec(FileUtil.file2Byte(
+//					FileUtil.getClasspath() + "/cert/icbc/b2c/bank.crt"));//lxhg.crt
+			byte[] decCert = FileUtil.file2Byte(
+					FileUtil.getClasspath() + "/cert/icbc/b2c/bank.crt");
+
 			// 返回验签结果，返回“0”表示验签成功；返回不为“0”表示验签失败。
-			int r = ReturnValue.verifySign(s.getBytes(), s.getBytes().length, decSign, decCert);
+			int r = ReturnValue.verifySign(s.getBytes(), s.getBytes().length, decCert, decSign);
+			
 			if (r == 0)
 				return true;
 		} catch (Exception e) {

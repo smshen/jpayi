@@ -154,18 +154,18 @@ public class IcbcB2bPayObject extends AbstractPayObject {
 		
 		// 组织要签名的数据串（串的顺序不可改变）. 注意：串中间不要有空格
 		StringBuffer sb = new StringBuffer();
-		sb.append(APIName).append("=").append(APIName)
-			.append("&").append(APIVersion).append("=").append(APIVersion)
-			.append("&").append(Shop_code).append("=").append(Shop_code)
-			.append("&").append(MerchantURL).append("=").append(MerchantURL)
-			.append("&").append(ContractNo).append("=").append(ContractNo)
-			.append("&").append(ContractAmt).append("=").append(ContractAmt)
-			.append("&").append(Account_cur).append("=").append(Account_cur)
-			.append("&").append(JoinFlag).append("=").append(JoinFlag)
-			.append("&").append(SendType).append("=").append(SendType)
-			.append("&").append(TranTime).append("=").append(TranTime)
-			.append("&").append(Shop_acc_num).append("=").append(Shop_acc_num)
-			.append("&").append(PayeeAcct).append("=").append(PayeeAcct);
+		sb.append("APIName").append("=").append(APIName)
+			.append("&").append("APIVersion").append("=").append(APIVersion)
+			.append("&").append("Shop_code").append("=").append(Shop_code)
+			.append("&").append("MerchantURL").append("=").append(MerchantURL)
+			.append("&").append("ContractNo").append("=").append(ContractNo)
+			.append("&").append("ContractAmt").append("=").append(ContractAmt)
+			.append("&").append("Account_cur").append("=").append(Account_cur)
+			.append("&").append("JoinFlag").append("=").append(JoinFlag)
+			.append("&").append("SendType").append("=").append(SendType)
+			.append("&").append("TranTime").append("=").append(TranTime)
+			.append("&").append("Shop_acc_num").append("=").append(Shop_acc_num)
+			.append("&").append("PayeeAcct").append("=").append(PayeeAcct);
 		
 		// 调用签名接口对数据签名
 		String s = sb.toString();
@@ -173,7 +173,7 @@ public class IcbcB2bPayObject extends AbstractPayObject {
 		try {
 			// TODO 将 key 路径 和 password 均在配置里面读取
 			bs = ReturnValue.sign(s.getBytes(), s.getBytes().length, FileUtil.file2Byte(
-					FileUtil.getClasspath() + "/cert/icbc/user.key"), "11111111".toCharArray());
+					FileUtil.getClasspath() + "/cert/icbc/b2b/lxhg.key"), "123456".toCharArray());
 			
 			// 然后调用BASE64编码API对产生的签名数据编码
 			return new String(ReturnValue.base64enc(bs));
@@ -193,7 +193,7 @@ public class IcbcB2bPayObject extends AbstractPayObject {
 	public String cert() {
 		// 商户证书字段cert的BASE64编码
 		return new String(ReturnValue.base64enc(FileUtil.file2Byte(
-				FileUtil.getClasspath() + "/cert/icbc/user.crt")));// TODO 将 key 路径 在配置里面读取
+				FileUtil.getClasspath() + "/cert/icbc/b2b/lxhg.crt")));// TODO 将 key 路径 在配置里面读取
 	}
 
 	public String getAPIName() {
@@ -354,6 +354,21 @@ public class IcbcB2bPayObject extends AbstractPayObject {
 
 	public void setShopRem(String shopRem) {
 		ShopRem = shopRem;
+	}
+
+	@Override
+	public String toString() {
+		return "IcbcB2bPayObject [APIName=" + APIName + ", APIVersion="
+				+ APIVersion + ", Account_cur=" + Account_cur + ", Amount="
+				+ Amount + ", Cert=" + Cert + ", ContractAmt=" + ContractAmt
+				+ ", ContractNo=" + ContractNo + ", GoodsCode=" + GoodsCode
+				+ ", GoodsName=" + GoodsName + ", JoinFlag=" + JoinFlag
+				+ ", Mer_Icbc20_signstr=" + Mer_Icbc20_signstr
+				+ ", MerchantURL=" + MerchantURL + ", PayeeAcct=" + PayeeAcct
+				+ ", SendType=" + SendType + ", ShopRem=" + ShopRem
+				+ ", ShopRemark=" + ShopRemark + ", Shop_acc_num="
+				+ Shop_acc_num + ", Shop_code=" + Shop_code + ", TranTime="
+				+ TranTime + ", TransFee=" + TransFee + "]";
 	}
 	
 }

@@ -11,8 +11,10 @@ import cn.zeli.pay.PayResultService;
 import cn.zeli.util.HttpUtils;
 
 /**
+ * @deprecated
  * @author Administrator
  *
+ * 
  */
 public class IcbcB2bPayResultService implements PayResultService {
 
@@ -24,7 +26,7 @@ public class IcbcB2bPayResultService implements PayResultService {
 	public PayResultObject payResultObject(HttpServletRequest request) {
 		IcbcB2bPayResultObject o = new IcbcB2bPayResultObject();
 		try {
-			HttpUtils.bindBeanOnlyString(request, o);
+			HttpUtils.bindBeanOnlyString(request, o, "GBK");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
