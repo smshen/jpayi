@@ -24,7 +24,7 @@ public class ChinabankB2cServerPayResultService implements PayResultService {
 	private void writeString(HttpServletResponse response, String content) {
 		try {
 			PrintWriter out = response.getWriter();
-			out.write("error");
+			out.write(content);
 			out.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
