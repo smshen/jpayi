@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import cn.zeli.pay.chinabank.ChinabankConfigObject;
+import cn.zeli.pay.icbc.IcbcB2bConfigObject;
+import cn.zeli.pay.icbc.IcbcB2cConfigObject;
 
 /**
  * 配置文件读取类
@@ -26,7 +28,17 @@ public class ConfigObjectHelper {
 		cco.setV_mid("22023664");
 		configs.put(ChinabankConfigObject.class, cco);
 		
+		IcbcB2cConfigObject icbcB2co = new IcbcB2cConfigObject();
+		icbcB2co.setMerID("1611EC23589693");
+		icbcB2co.setMerAcct("1611002319022123647");
+		icbcB2co.setPassword("123456");
+		configs.put(IcbcB2cConfigObject.class, icbcB2co);
 		
+		IcbcB2bConfigObject icbcB2bo = new IcbcB2bConfigObject();
+		icbcB2bo.setShop_code("1611EC13401181");
+		icbcB2bo.setShop_acc_num("1611002319022123647");
+		icbcB2bo.setPayeeAcct("1611002309024596339");
+		configs.put(IcbcB2bConfigObject.class, icbcB2bo);
 		
 	}
 	
