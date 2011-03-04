@@ -7,6 +7,7 @@ import java.beans.BeanInfo;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -42,8 +43,16 @@ public class AbstractPayObject implements PayObject {
 					continue;// class是关键字,被忽略
 				}
 
-				Field field = clazz.getDeclaredField(itemName);
+				Field field = null;//clazz.getDeclaredField(itemName);
 
+				try {
+					field = clazz.getDeclaredField(itemName);
+				} catch (Exception e) {
+					// 由于对于变量名称为ABC的情况正确，对于Abc则有误，故作此处理
+					itemName = itemName.substring(0, 1).toUpperCase(Locale.ENGLISH) + itemName.substring(1);
+					field = clazz.getDeclaredField(itemName);
+				}
+				
 				PayField f = field.getAnnotation(PayField.class);
 
 				field.setAccessible(true);
@@ -136,7 +145,16 @@ public class AbstractPayObject implements PayObject {
 				if ("class".equals(itemName)) {
 					continue;// class是关键字,被忽略
 				}
-				Field field = clazz.getDeclaredField(itemName);
+				Field field = null;
+
+				try {
+					field = clazz.getDeclaredField(itemName);
+				} catch (Exception e) {
+					// 由于对于变量名称为ABC的情况正确，对于Abc则有误，故作此处理
+					itemName = itemName.substring(0, 1).toUpperCase(Locale.ENGLISH) + itemName.substring(1);
+					field = clazz.getDeclaredField(itemName);
+				}
+				
 
 				PayField f = field.getAnnotation(PayField.class);
 
