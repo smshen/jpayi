@@ -21,6 +21,7 @@ import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -38,6 +39,8 @@ public class HttpUtils {
 	private static final String METHOD_POST = "POST";
 	private static final String METHOD_GET = "GET";
 
+	public static final String ISO88591 = "ISO-8859-1";
+	
 	/**
 	 * 获取编码字符集<br/>
 	 * 分别从request和response中尝试获取
@@ -57,35 +60,56 @@ public class HttpUtils {
 				: Constants.DEFAULT_ENCODING) : encode);
 
 	}
-
+	
 	public static <T> void bindBeanOnlyString(HttpServletRequest request,
 			T object) throws IntrospectionException, SecurityException,
+			NoSuchFieldException, IllegalArgumentException,
+			IllegalAccessException {
+		
+		bindBeanOnlyString(request, object, null);
+	}
+	
+	
+	public static <T> void bindBeanOnlyString(HttpServletRequest request,
+			T object, String charset) throws IntrospectionException, SecurityException,
 			NoSuchFieldException, IllegalArgumentException,
 			IllegalAccessException {
 		Class<?> clazz = object.getClass();
 		BeanInfo bi = Introspector.getBeanInfo(clazz);
 		PropertyDescriptor[] pds = bi.getPropertyDescriptors();
-		Map paramsMap = paramMap(request);
+		Map paramsMap = paramMap(request, charset);
 		for (PropertyDescriptor pd : pds) {
 			String itemName = pd.getName();
 			if ("class".equals(itemName)) {
 				continue;// class是关键字,被忽略
 			}
-			Field field = clazz.getDeclaredField(itemName);
+
+			Field field = null;
+			try {
+				field = clazz.getDeclaredField(itemName);
+			} catch (Exception e) {
+				itemName = itemName.substring(0, 1).toUpperCase(Locale.ENGLISH) + itemName.substring(1);
+				field = clazz.getDeclaredField(itemName);
+			}
 
 			field.setAccessible(true);
 
 			if ("_all_params_map".equals(itemName)) {// 特例参数，将所有request设值
 				field.set(object, paramsMap);
-			} else
-				field.set(object, paramsMap.get(itemName));
+			} else {
+				Object tmp = paramsMap.get(itemName);
+//				if (null == tmp)
+//					field.set(object, "");
+//				else
+					field.set(object, tmp);
+			}
 
 		}
 	}
 
 	
 	
-	public static Map paramMap(HttpServletRequest request) {
+	public static Map paramMap(HttpServletRequest request, String charset) {
 		Map<String, String> result = new HashMap<String, String>();
 		Map map = request.getParameterMap();
 		for (Iterator itr = map.keySet().iterator(); itr.hasNext();) {
@@ -97,17 +121,27 @@ public class HttpUtils {
 				valueStr = (i == values.length - 1) ? valueStr + values[i]
 						: valueStr + values[i] + ",";
 			}
-			//GET 参数乱麻解决
-			if (request.getMethod().equals("GET")) {
+			
+			if (null != charset) {// 若有charset转换要求，则直接转换
 				try {
 					result.put(name, new String(
-							valueStr.getBytes("ISO-8859-1"), Constants.DEFAULT_CHARSET));
+							valueStr.getBytes(ISO88591), charset));
 				} catch (UnsupportedEncodingException e) {
-					// e.printStackTrace();
 					result.put(name, valueStr);
 				}
 			} else {
-				result.put(name, valueStr);
+				//GET 参数乱麻解决
+				if (request.getMethod().equals("GET")) {
+					try {
+						result.put(name, new String(
+								valueStr.getBytes(ISO88591), Constants.DEFAULT_CHARSET));
+					} catch (UnsupportedEncodingException e) {
+						// e.printStackTrace();
+						result.put(name, valueStr);
+					}
+				} else {
+					result.put(name, valueStr);
+				}
 			}
 		}
 		return result;
