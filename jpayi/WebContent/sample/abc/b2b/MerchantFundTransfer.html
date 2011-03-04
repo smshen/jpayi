@@ -1,0 +1,57 @@
+<!--
+/*
+ * @(#)MerchantFundTransfer.html	V1.0.0	2004/10/15
+ *
+ * Project: BJP03004
+ *
+ * Description:
+ *    商户直接支付请求范例页面。
+ *
+ * Modify Information:
+ *    Author        Date        Description
+ *    ============  ==========  =======================================
+ *    HiTRUST       2004/10/15  V1.0 Release
+ *
+ * Copyright Notice:
+ *   Copyright (c) 2001-2004 Beijing HiTRUST Technology Co., Ltd.
+ *   1808 Room, Science & Technology Building, No. 9 South Street,
+ *   Zhong Guan Cun, Haidian District, Beijing ,100081, China
+ *   All rights reserved.
+ *
+ *   This software is the confidential and proprietary information of
+ *   HiTRUST.COM, Inc. ("Confidential Information"). You shall not
+ *   disclose such Confidential Information and shall use it only in
+ *   accordance with the terms of the license agreement you entered
+ *   into with HiTRUST.
+ */
+-->
+<HTML>
+<HEAD><TITLE>农行网上支付平台-商户接口范例-直接支付请求</TITLE></HEAD>
+<CENTER>直接支付请求</CENTER><br>
+<BODY BGCOLOR='#FFFFFF' TEXT='#000000' LINK='#0000FF' VLINK='#0000FF' ALINK='#FF0000'>
+  <FORM name=form1 action='MerchantFundTransfer.jsp' method=post>
+    <TABLE>
+      <TR><TD>商户交易编号        </TD>
+          <TD><INPUT NAME='MerchantTrnxNo'         VALUE='20040427008'></TD></TR>
+      <TR><TD>交易日期            </TD>
+          <TD><INPUT NAME='TrnxDate'               VALUE='2003/11/12'>（YYYY/MM/DD）</TD></TR>    
+      <TR><TD>交易时间            </TD>
+          <TD><INPUT NAME='TrnxTime'               VALUE='23:55:30'>（HH:MM:SS）</TD></TR>
+      <TR><TD>交易金额            </TD>
+          <TD><INPUT NAME='TrnxAmount'             VALUE='10000.00'></TD></TR>
+      <TR><TD>收款方账号          </TD>
+          <TD><INPUT NAME='AccountDBNo'            VALUE='9663396685269'></TD></TR>
+      <TR><TD>收款方账户名        </TD>
+          <TD><INPUT NAME='AccountDBName'          VALUE='北京宏基'></TD></TR>
+      <TR><TD>收款方账户开户行联行号    </TD>
+          <TD><INPUT NAME='AccountDBBank'          VALUE='000000'>（默认为000000）</TD></TR>
+      <TR><TD>ResultNotifyURL</TD>
+          <TD><INPUT NAME='ResultNotifyURL'        VALUE='http://172.16.22.64:8080/B2BClient/TrnxResult.jsp'></TD></TR>         
+      <TR><TD>MerchantRemarks     </TD>
+          <TD><INPUT NAME='MerchantRemarks'        VALUE='Hi!'></TD></TR>
+      <TR><TD colspan=2><INPUT type=submit>
+    </TABLE>
+  </FORM>
+  <CENTER><a href='Merchant.html'>回商户首页</a></CENTER>
+</BODY>
+</HTML>

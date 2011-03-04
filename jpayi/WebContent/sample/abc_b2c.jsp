@@ -2,18 +2,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
+String path = request.getScheme() + "://" + request.getServerName() + request.getContextPath();
+
 //1、取得支付请求所需要的信息
-String tOrderNo         = "1";//request.getParameter("OrderNo"        );
-String tOrderDesc       = "1";//request.getParameter("OrderDesc"      );
-String tOrderDate       = "1";//request.getParameter("OrderDate"      );
-String tOrderTime       = "1";//request.getParameter("OrderTime"      );
-String tOrderAmountStr  = "1";//request.getParameter("OrderAmount"    );
-String tOrderURL        = "1";//request.getParameter("OrderURL"       );
+String tOrderNo         = "T" + System.currentTimeMillis();//request.getParameter("OrderNo"        );
+String tOrderDesc       = "only Testing";//request.getParameter("OrderDesc"      );
+String tOrderDate       = cn.zeli.util.DateUtil.getDateFormat(new java.util.Date(),"yyyy/MM/dd");//request.getParameter("OrderDate"      );
+String tOrderTime       = cn.zeli.util.DateUtil.getDateFormat(new java.util.Date(),"HH:mm:ss");//request.getParameter("OrderTime"      );
+String tOrderAmountStr  = "0.01";//request.getParameter("OrderAmount"    );
+String tOrderURL        = "http://localhost/jpayi";//request.getParameter("OrderURL"       );
 String tProductType     = "1";//request.getParameter("ProductType"    );
 String tPaymentType     = "1";//request.getParameter("PaymentType"    );
-String tNotifyType      = "1";//request.getParameter("NotifyType"     );
-String tResultNotifyURL = "1";//request.getParameter("ResultNotifyURL");
-String tMerchantRemarks = "1";//request.getParameter("MerchantRemarks");
+String tNotifyType      = "0";//request.getParameter("NotifyType"     );
+String tResultNotifyURL = path + "/pay/notify/abc/b2c/server";//request.getParameter("ResultNotifyURL");
+String tMerchantRemarks = "test";//request.getParameter("MerchantRemarks");
 double  tOrderAmount    = java.lang.Double.parseDouble(tOrderAmountStr);
 String tPaymentLinkType = "1";//request.getParameter("PaymentLinkType");
 
@@ -27,8 +29,8 @@ tOrder.setOrderAmount(tOrderAmount); //设定订单金额 （必要信息）
 tOrder.setOrderURL   (tOrderURL   ); //设定订单网址
 
 //3、生成定单订单对象，并将订单明细加入定单中（可选信息）
-tOrder.addOrderItem(new OrderItem("IP000001", "中国移动IP卡", 100.00f, 1));
-tOrder.addOrderItem(new OrderItem("IP000002", "网通IP卡"    ,  90.00f, 2));
+//tOrder.addOrderItem(new OrderItem("IP000001", "中国移动IP卡", 100.00f, 1));
+//tOrder.addOrderItem(new OrderItem("IP000002", "网通IP卡"    ,  90.00f, 2));
 
 //4、生成支付请求对象
 PaymentRequest tPaymentRequest = new PaymentRequest();
@@ -54,6 +56,7 @@ if (tTrxResponse.isSuccess()) {
    System.out.println("PaymentURL-->"+tTrxResponse.getValue("PaymentURL"));
    response.sendRedirect(tTrxResponse.getValue("PaymentURL"));
 } else {
+	System.out.println(tTrxResponse.getErrorMessage());
 	   //7、支付请求提交失败，商户自定后续动作
 	response.sendError(HttpServletResponse.SC_FORBIDDEN, "错误支付对象");
 }
