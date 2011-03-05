@@ -51,7 +51,7 @@ public class IcbcB2cServerPayResultService implements PayResultService {
 	public PayResultObject payResultObject(HttpServletRequest request) {
 		IcbcB2cPayResultObject o = new IcbcB2cPayResultObject();
 		try {
-			HttpUtils.bindBeanOnlyString(request, o);
+			HttpUtils.bindBeanOnlyString(request, o, "GBK");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

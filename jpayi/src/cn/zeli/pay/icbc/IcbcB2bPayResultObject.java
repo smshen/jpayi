@@ -189,7 +189,7 @@ public class IcbcB2bPayResultObject extends AbstractPayResultObject {
 	 */
 	public boolean success() {
 		// 参考字段PayStatusZHCN值的定义
-		if (null != PayStatusZHCN && "".equals(PayStatusZHCN)) {
+		if (null != PayStatusZHCN && "0".equals(PayStatusZHCN)) {
 			return true;
 		}
 		return false;
@@ -204,7 +204,7 @@ public class IcbcB2bPayResultObject extends AbstractPayResultObject {
 		String s = new StringBuffer().append("APIName").append("=").append(APIName)
 		.append("&").append("APIVersion").append("=").append(APIVersion)
 		.append("&").append("Shop_code").append("=").append(Shop_code)
-		.append("&").append("MerchantURL").append("=").append(APIName)
+		.append("&").append("MerchantURL").append("=").append(MerchantURL)
 		.append("&").append("Serial_no").append("=").append(Serial_no)
 		.append("&").append("PayStatusZHCN").append("=").append(PayStatusZHCN)
 		.append("&").append("TranErrorCode").append("=").append(TranErrorCode)
@@ -225,6 +225,7 @@ public class IcbcB2bPayResultObject extends AbstractPayResultObject {
 		.toString();
 		
 		System.out.println(s);
+		System.out.println("NotifySign=" + NotifySign);
 		
 		// 调用API统一接口对签名数据进行BASE64解码，得到签名信息。
 		byte[] decSign = ReturnValue.base64dec(NotifySign.getBytes());
