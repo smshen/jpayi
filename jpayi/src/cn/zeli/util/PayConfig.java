@@ -35,15 +35,27 @@ public final class PayConfig {
 	public static String PAY_RESULT_DO_PARAM_CONTENT = getStringWithOutSpace(
 			"pay.result.do.param.content", "content");
 
-	public static String PAY_RESULT_DO_SUCCESS_URL = getStringWithOutSpace(
-			"pay.result.do.success.url", "");
-	public static String PAY_RESULT_DO_FAIL_URL = getStringWithOutSpace(
-			"pay.result.do.fail.url", "");
+//	public static String PAY_RESULT_DO_SUCCESS_URL = getStringWithOutSpace(
+//			"pay.result.do.success.url", "");
+//	public static String PAY_RESULT_DO_FAIL_URL = getStringWithOutSpace(
+//			"pay.result.do.fail.url", "");
 
 	public static String PAY_SUCCESS_URL = getStringWithOutSpace(
 			"pay.result.success.url", "");
 	public static String PAY_FAIL_URL = getStringWithOutSpace(
 			"pay.result.fail.url", "");
+
+	public static String ICBC_B2C_PRIVATE_KEY_PATH = getStringWithOutSpace("icbc.b2c.user.key.private", "");
+	public static String ICBC_B2C_PUBLIC_KEY_PATH = getStringWithOutSpace("icbc.b2c.user.key.public", "");
+	public static String ICBC_B2C_BANK_PUBLIC_KEY_PATH = getStringWithOutSpace("icbc.b2c.bank.key.public", "");
+
+	public static String ICBC_B2B_PRIVATE_KEY_PATH = getStringWithOutSpace("icbc.b2b.user.key.private", "");
+	public static String ICBC_B2B_PUBLIC_KEY_PATH = getStringWithOutSpace("icbc.b2b.user.key.public", "");
+	public static String ICBC_B2B_BANK_PUBLIC_KEY_PATH = getStringWithOutSpace("icbc.b2b.bank.key.public", "");
+
+	public static String CCB_B2B_PUBLIC_KEY = getStringWithOutSpace("ccb.b2b.key.public", "");
+	public static String CCB_B2C_PUBLIC_KEY = getStringWithOutSpace("ccb.b2c.key.public", "");
+	
 	
 	public static String getString(String key) {
 		return getString(key, null);
