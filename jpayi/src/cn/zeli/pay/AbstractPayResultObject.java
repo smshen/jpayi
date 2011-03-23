@@ -14,5 +14,12 @@ public abstract class AbstractPayResultObject implements PayResultObject {
 	 */
 	private static final long serialVersionUID = 7044118935841561885L;
 	
+	protected float toFloat(String amount) {
+		try {
+			return Float.parseFloat(amount);
+		} catch (NumberFormatException e) {
+			return 0f;
+		}
+	}
 
 }

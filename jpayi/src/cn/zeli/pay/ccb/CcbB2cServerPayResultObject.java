@@ -10,32 +10,40 @@ import cn.zeli.util.PayConfig;
  * @author Administrator
  *
  */
-public class CcbB2bPagePayResultObject extends AbstractPayResultObject {
+public class CcbB2cServerPayResultObject extends AbstractPayResultObject {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1009573647073739295L;
-	
-	private String POSID;
+	private static final long serialVersionUID = -5113902222982474793L;
 
+	private String POSID;
+	
 	private String BRANCHID;
 	
 	private String ORDERID;
+	
 	private String PAYMENT;
+	
 	private String CURCODE;
+	
 	private String REMARK1;
+	
 	private String REMARK2;
+	
+	private String ACC_TYPE;
+	
 	private String SUCCESS;
+	
 	private String SIGN;
-//	private String ACC_TYPE;
-
+	
+	
 	/* (non-Javadoc)
 	 * @see cn.zeli.pay.PayResultObject#bankInfo()
 	 */
 	@Override
 	public String bankInfo() {
-		return "CCB|B2B";
+		return "CCB|B2C";
 	}
 
 	/* (non-Javadoc)
@@ -59,6 +67,7 @@ public class CcbB2bPagePayResultObject extends AbstractPayResultObject {
 	 */
 	@Override
 	public boolean success() {
+		// （Y－成功；N－失败；E－客户放弃支付，此时ACC_TYPE字段为空）
 		return "Y".equals(SUCCESS);
 	}
 
@@ -67,6 +76,7 @@ public class CcbB2bPagePayResultObject extends AbstractPayResultObject {
 	 */
 	@Override
 	public boolean verify() {
+
 		StringBuffer sb = new StringBuffer();
 		sb.append("POSID=").append(POSID).append("&")
 		.append("BRANCHID=").append(BRANCHID).append("&")
@@ -75,6 +85,7 @@ public class CcbB2bPagePayResultObject extends AbstractPayResultObject {
 		.append("CURCODE=").append(CURCODE).append("&")
 		.append("REMARK1=").append(REMARK1).append("&")
 		.append("REMARK2=").append(REMARK2).append("&")
+		.append("ACC_TYPE=").append(ACC_TYPE).append("&")
 		.append("SUCCESS=").append(SUCCESS);
 		
 		
@@ -137,6 +148,14 @@ public class CcbB2bPagePayResultObject extends AbstractPayResultObject {
 
 	public void setREMARK2(String rEMARK2) {
 		REMARK2 = rEMARK2;
+	}
+
+	public String getACC_TYPE() {
+		return ACC_TYPE;
+	}
+
+	public void setACC_TYPE(String aCCTYPE) {
+		ACC_TYPE = aCCTYPE;
 	}
 
 	public String getSUCCESS() {

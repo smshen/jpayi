@@ -4,6 +4,7 @@
 package cn.zeli.pay.ccb;
 
 import cn.zeli.pay.AbstractPayResultObject;
+import cn.zeli.util.PayConfig;
 
 /**
  * @author Administrator
@@ -49,8 +50,8 @@ public class CcbB2cPagePayResultObject extends AbstractPayResultObject {
 	 * @see cn.zeli.pay.PayResultObject#payAmount()
 	 */
 	@Override
-	public String payAmount() {
-		return PAYMENT;
+	public float payAmount() {
+		return toFloat(PAYMENT);
 	}
 
 	/* (non-Javadoc)
@@ -66,8 +67,20 @@ public class CcbB2cPagePayResultObject extends AbstractPayResultObject {
 	 */
 	@Override
 	public boolean verify() {
-		// TODO Auto-generated method stub
-		return false;
+		StringBuffer sb = new StringBuffer();
+		sb.append("POSID=").append(POSID).append("&")
+		.append("BRANCHID=").append(BRANCHID).append("&")
+		.append("ORDERID=").append(ORDERID).append("&")
+		.append("PAYMENT=").append(PAYMENT).append("&")
+		.append("CURCODE=").append(CURCODE).append("&")
+		.append("REMARK1=").append(REMARK1).append("&")
+		.append("REMARK2=").append(REMARK2).append("&")
+		.append("SUCCESS=").append(SUCCESS);
+		
+		
+		RSASig rsa = new RSASig();
+		rsa.setPublicKey(PayConfig.CCB_B2B_PUBLIC_KEY);
+		return rsa.verifySigature(SIGN, sb.toString());
 	}
 
 	public String getPOSID() {

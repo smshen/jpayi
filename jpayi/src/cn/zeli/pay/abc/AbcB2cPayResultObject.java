@@ -44,8 +44,12 @@ public class AbcB2cPayResultObject extends PaymentResult implements
 	/* (non-Javadoc)
 	 * @see cn.zeli.pay.PayResultObject#payAmount()
 	 */
-	public String payAmount() {
-		return getValue("Amount");
+	public float payAmount() {
+		try {
+			return Float.parseFloat(getValue("Amount"));
+		} catch (NumberFormatException e) {
+			return 0l;
+		}
 	}
 
 	/* (non-Javadoc)

@@ -50,7 +50,12 @@ public class AbstractPayObject implements PayObject {
 				} catch (Exception e) {
 					// 由于对于变量名称为ABC的情况正确，对于Abc则有误，故作此处理
 					itemName = itemName.substring(0, 1).toUpperCase(Locale.ENGLISH) + itemName.substring(1);
-					field = clazz.getDeclaredField(itemName);
+					try {
+						field = clazz.getDeclaredField(itemName);
+					} catch (Exception e1) {
+						e.printStackTrace();
+						continue;
+					}
 				}
 				
 				PayField f = field.getAnnotation(PayField.class);
@@ -152,7 +157,12 @@ public class AbstractPayObject implements PayObject {
 				} catch (Exception e) {
 					// 由于对于变量名称为ABC的情况正确，对于Abc则有误，故作此处理
 					itemName = itemName.substring(0, 1).toUpperCase(Locale.ENGLISH) + itemName.substring(1);
-					field = clazz.getDeclaredField(itemName);
+					try {
+						field = clazz.getDeclaredField(itemName);
+					} catch (Exception e1) {
+						e1.printStackTrace();
+						continue;
+					}
 				}
 				
 

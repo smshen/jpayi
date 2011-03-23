@@ -176,8 +176,8 @@ public class IcbcB2bPayResultObject extends AbstractPayResultObject {
 		return ContractNo;
 	}
 
-	public String payAmount() {
-		return ContractAmt;
+	public float payAmount() {
+		return toFloat(ContractAmt) / 100;
 	}
 
 	public String bankInfo() {

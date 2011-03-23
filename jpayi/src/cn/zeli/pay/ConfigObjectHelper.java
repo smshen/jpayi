@@ -6,6 +6,8 @@ package cn.zeli.pay;
 import java.util.HashMap;
 import java.util.Map;
 
+import cn.zeli.pay.ccb.CcbB2bConfigObject;
+import cn.zeli.pay.ccb.CcbB2cConfigObject;
 import cn.zeli.pay.chinabank.ChinabankConfigObject;
 import cn.zeli.pay.icbc.IcbcB2bConfigObject;
 import cn.zeli.pay.icbc.IcbcB2cConfigObject;
@@ -39,6 +41,20 @@ public class ConfigObjectHelper {
 		icbcB2bo.setShop_acc_num("1611002319022123647");
 		icbcB2bo.setPayeeAcct("1611002309024596339");
 		configs.put(IcbcB2bConfigObject.class, icbcB2bo);
+		
+		CcbB2cConfigObject ccbB2co = new CcbB2cConfigObject();
+		ccbB2co.setMERCHANTID("105371573990009");
+		ccbB2co.setPOSID("135853573");
+		ccbB2co.setBRANCHID("370000000");
+		configs.put(CcbB2cConfigObject.class, ccbB2co);
+		
+		CcbB2bConfigObject ccbB2bo = new CcbB2bConfigObject();
+		ccbB2bo.setMERCHANTID("105371573990009");
+		ccbB2bo.setPOSID("340190117");
+		ccbB2bo.setBRANCHID("370000000");
+		configs.put(CcbB2bConfigObject.class, ccbB2bo);
+		
+		
 		
 	}
 	

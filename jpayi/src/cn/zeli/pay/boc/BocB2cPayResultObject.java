@@ -78,8 +78,8 @@ public class BocB2cPayResultObject extends AbstractPayResultObject {
 	/* (non-Javadoc)
 	 * @see cn.zeli.pay.PayResultObject#orderAmount()
 	 */
-	public String payAmount() {
-		return payAmount;
+	public float payAmount() {
+		return toFloat(payAmount);
 	}
 
 	/* (non-Javadoc)

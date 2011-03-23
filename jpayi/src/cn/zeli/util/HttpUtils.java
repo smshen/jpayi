@@ -89,7 +89,12 @@ public class HttpUtils {
 				field = clazz.getDeclaredField(itemName);
 			} catch (Exception e) {
 				itemName = itemName.substring(0, 1).toUpperCase(Locale.ENGLISH) + itemName.substring(1);
-				field = clazz.getDeclaredField(itemName);
+				try {
+					field = clazz.getDeclaredField(itemName);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+					continue;
+				}
 			}
 
 			field.setAccessible(true);

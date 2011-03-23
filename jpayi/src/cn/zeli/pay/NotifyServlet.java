@@ -121,7 +121,7 @@ public class NotifyServlet extends HttpServlet {
 			// 获取支付结果对象，XXX 是否持久化存储 ？
 			PayResultObject pro = ps.payResultObject(request);
 			
-			Map<String, String> params = new HashMap<String, String>();
+			Map<String, Object> params = new HashMap<String, Object>();
 			params.put(PayConfig.PAY_RESULT_DO_PARAM_ORDERID, pro.orderId());
 			params.put(PayConfig.PAY_RESULT_DO_PARAM_ORDERAMOUNT, pro.payAmount());
 			params.put(PayConfig.PAY_RESULT_DO_PARAM_BANK, pro.bankInfo());
@@ -130,8 +130,8 @@ public class NotifyServlet extends HttpServlet {
 			// 供下个页面获取，展示
 			request.setAttribute(PayConfig.PAY_BASE_RESULT_ATTRIBUTE, params);
 
-			String successLogicUrl = getPath(request, PayConfig.PAY_RESULT_DO_SUCCESS_URL);
-			String failLogicUrl = getPath(request, PayConfig.PAY_RESULT_DO_FAIL_URL);
+//			String successLogicUrl = getPath(request, PayConfig.PAY_RESULT_DO_SUCCESS_URL);
+//			String failLogicUrl = getPath(request, PayConfig.PAY_RESULT_DO_FAIL_URL);
 			
 			if (pro.verify()) {// 验证是否成功
 				

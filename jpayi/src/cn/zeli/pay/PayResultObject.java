@@ -35,7 +35,7 @@ public interface PayResultObject extends Serializable {
 	 * 扩展：目前更加银行返回支付金额为主。如果要更细化，则可以再划分具体金额。当前版本不实现。
 	 * @return
 	 */
-	public String payAmount();
+	public float payAmount();
 	
 	/**
 	 * 银行信息，可以包括银行基本信息和业务基本信息

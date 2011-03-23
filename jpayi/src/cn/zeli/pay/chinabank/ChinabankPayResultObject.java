@@ -54,8 +54,8 @@ public class ChinabankPayResultObject extends AbstractPayResultObject {
 		return v_oid;
 	}
 
-	public String payAmount() {
-		return v_amount;
+	public float payAmount() {
+		return toFloat(v_amount);
 	}
 
 	public String bankInfo() {

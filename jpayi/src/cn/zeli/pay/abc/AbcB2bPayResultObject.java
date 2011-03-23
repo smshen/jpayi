@@ -41,23 +41,27 @@ public class AbcB2bPayResultObject extends TrnxResult implements
 	/* (non-Javadoc)
 	 * @see cn.zeli.pay.PayResultObject#payAmount()
 	 */
-	public String payAmount() {
-		return getValue("TrnxAMT");
+	public float payAmount() {
+		try {
+			return Float.parseFloat(getValue("TrnxAMT"));
+		} catch (NumberFormatException e) {
+			return 0f;
+		}
 	}
 
 	/* (non-Javadoc)
 	 * @see cn.zeli.pay.PayResultObject#success()
 	 */
 	public boolean success() {
-		return isSuccess();
+		return getValue("TrnxStatus").equals(STATUS_SUCCESS);
 	}
 
 	/* (non-Javadoc)
 	 * @see cn.zeli.pay.PayResultObject#verify()
 	 */
 	public boolean verify() {
-		// 由于农行已经封装过，因此，此验证直接返回true，只使用success();
-		return true;
+		// 由于农行已经封装过，使用isSuccess();
+		return isSuccess();
 	}
 
 }

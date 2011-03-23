@@ -203,8 +203,8 @@ public class IcbcB2cPayResultObject extends AbstractPayResultObject {
 	 * 
 	 * @see cn.zeli.pay.PayResultObject#orderAmount()
 	 */
-	public String payAmount() {
-		return amount;
+	public float payAmount() {
+		return toFloat(amount) / 100;
 	}
 
 	public String getInterfaceName() {
