@@ -147,8 +147,9 @@ public class NotifyServlet extends HttpServlet {
 							return;
 						}
 //						request.getRequestDispatcher(getPath(request, PayConfig.PAY_SUCCESS_URL)).forward(request, response);
-						request.getRequestDispatcher(PayConfig.PAY_SUCCESS_URL).forward(request, response);
-						
+//						request.getRequestDispatcher(PayConfig.PAY_SUCCESS_URL).forward(request, response);
+
+						post(response, PayConfig.PAY_SUCCESS_URL, params);
 					}
 					
 				} else {
@@ -185,6 +186,35 @@ public class NotifyServlet extends HttpServlet {
 			response.sendError(HttpServletResponse.SC_FORBIDDEN);
 			return;
 		}
+	}
+	
+	private void post(HttpServletResponse response, String url, Map<String, ?> map) throws IOException {
+		response.setHeader("Pragma", "No-cache");
+		response.setHeader("Cache-Control", "no-cache");
+		response.setDateHeader("Expires", 0);
+		
+		PrintWriter out = response.getWriter();
+		
+		out.print("<html><body onLoad=\"javascript:document.xxxxxx.submit()\">");
+		out.print("<form action=\"");
+		out.print(url);
+		out.print("\" method=\"post\" name=\"xxxxxx\">");
+		
+		StringBuffer buffer = new StringBuffer();
+		
+		
+		for (String key : map.keySet()) {
+			Object value = map.get(key);
+//			if (value instanceof String) {
+				buffer.append("<input type=\"hidden\" name=\"")
+				.append(key).append("\" value=\"").append(value)
+				.append("\">");
+//			}
+		}
+		out.print(buffer.toString());
+		out.print("</form></body></html>");
+		out.flush();
+		out.close();
 	}
 	
 	private void defaultHtml(HttpServletRequest request, HttpServletResponse response, PayResultObject pro) {
