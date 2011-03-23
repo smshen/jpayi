@@ -41,12 +41,12 @@ String tMerchantTrnxNo           = "T" + System.currentTimeMillis();//request.ge
 String tTrnxAmountStr            = "0.01";//request.getParameter("TrnxAmount"           );
 String tTrnxDate                 = cn.zeli.util.DateUtil.getDateFormat(new java.util.Date(),"yyyy/MM/dd");//request.getParameter("TrnxDate"             );
 String tTrnxTime                 = cn.zeli.util.DateUtil.getDateFormat(new java.util.Date(),"HH:mm:ss");//request.getParameter("TrnxTime"             );
-String tAccountDBNo              = request.getParameter("AccountDBNo"          );
-String tAccountDBName            = request.getParameter("AccountDBName"        );
-       tAccountDBName = new String(tAccountDBName.getBytes("ISO-8859-1"),"gb2312");
-String tAccountDBBank            = request.getParameter("AccountDBBank"        );
+String tAccountDBNo              = "15-811401040007857";//request.getParameter("AccountDBNo"          );
+String tAccountDBName            = null;//request.getParameter("AccountDBName"        );
+       tAccountDBName = "É½¶«ÁÄ³ÇÂ³Î÷»¯¹¤ÏúÊÛÓÐÏÞ¹«Ë¾";//new String(tAccountDBName.getBytes("ISO-8859-1"),"gb2312");
+String tAccountDBBank            = "12345";//request.getParameter("AccountDBBank"        );
 String tResultNotifyURL          = path + "/pay/notify/abc/b2b/server";//request.getParameter("ResultNotifyURL"      );
-String tMerchantRemarks          = request.getParameter("MerchantRemarks"      );
+//String tMerchantRemarks          = request.getParameter("MerchantRemarks"      );
 double  tTrnxAmount              = 0;
 boolean isTrnxAmountOK = true;
 try {
@@ -64,7 +64,7 @@ tTrnxItems.addTrnxItem(new TrnxItem("IP000001", "ÖÐ¹úÒÆ¶¯IP¿¨", 100.00f,  1));
 
 TrnxRemarks tTrnxRemarks = new TrnxRemarks();
 tTrnxRemarks.addTrnxRemark(new TrnxRemark("ºÏÍ¬ºÅ",  "555000000"));
-tTrnxRemarks.addTrnxRemark(new TrnxRemark("²É¹ºÊ±¼ä","2003/11/12 14:23:34"));
+tTrnxRemarks.addTrnxRemark(new TrnxRemark("²É¹ºÊ±¼ä","2011/3/4 14:23:34"));
 tTrnxRemarks.addTrnxRemark(new TrnxRemark("½»Ò×ÀàÐÍ","ÂòÈë"));
 tTrnxRemarks.addTrnxRemark(new TrnxRemark("ÆäËüËµÃ÷","ÄÜ¹»Ê¹Âò·½È·ÐÅ¸Ã½»Ò×ÊÇ×Ô¼º½»Ò×µÄÐÅÏ¢"));
 
@@ -84,7 +84,7 @@ tFundTransferRequest.setAccountDBNo(tAccountDBNo);                     //Éè¶¨ÊÕ¿
 tFundTransferRequest.setAccountDBName(tAccountDBName);                 //Éè¶¨ÊÕ¿î·½ÕË»§Ãû    £¨±ØÒªÐÅÏ¢£©
 tFundTransferRequest.setAccountDBBank(tAccountDBBank);                 //Éè¶¨ÊÕ¿î·½ÕË»§¿ª»§ÐÐÁªÐÐºÅ£¨±ØÒªÐÅÏ¢£©
 tFundTransferRequest.setResultNotifyURL(tResultNotifyURL);             //Éè¶¨½»Ò×½á¹û»Ø´«ÍøÖ·£¨±ØÒªÐÅÏ¢£©
-tFundTransferRequest.setMerchantRemarks(tMerchantRemarks);             //Éè¶¨ÉÌ»§±¸×¢ÐÅÏ¢
+//tFundTransferRequest.setMerchantRemarks(tMerchantRemarks);             //Éè¶¨ÉÌ»§±¸×¢ÐÅÏ¢
  
 //4¡¢´«ËÍÖ±½ÓÖ§¸¶ÇëÇó²¢È¡µÃÖ§¸¶ÍøÖ·
 TrxResponse tTrxResponse = tFundTransferRequest.postRequest();
