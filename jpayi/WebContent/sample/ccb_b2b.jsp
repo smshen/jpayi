@@ -14,8 +14,8 @@ ccbB2b.setPOSID(ico.getPOSID());
 ccbB2b.setBRANCHID(ico.getBRANCHID());
 ccbB2b.setORDERID("T" + System.currentTimeMillis());
 ccbB2b.setPAYMENT("0.01");
-ccbB2b.setREMARK1("");
-ccbB2b.setREMARK2("");
+ccbB2b.setREMARK1("B2B");
+ccbB2b.setREMARK2("test");
 
 // /pay/notify/ccb/b2b/page
 
