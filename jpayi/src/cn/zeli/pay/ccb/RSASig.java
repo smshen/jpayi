@@ -4,6 +4,11 @@ package cn.zeli.pay.ccb;
 import java.security.*;
 import netpay.merchant.crypto.*;
 
+/**
+ * @deprecated
+ * @author Administrator
+ *
+ */
 public class RSASig{
 	private String priKey;
 	private String pubKey;
@@ -99,6 +104,7 @@ public class RSASig{
 		}
 
 		}catch(Exception e){
+			e.printStackTrace();
 			return false;
 		}
 	}

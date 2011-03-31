@@ -77,9 +77,13 @@ public class CcbB2cPagePayResultObject extends AbstractPayResultObject {
 		.append("REMARK2=").append(REMARK2).append("&")
 		.append("SUCCESS=").append(SUCCESS);
 		
-		
-		RSASig rsa = new RSASig();
-		rsa.setPublicKey(PayConfig.CCB_B2B_PUBLIC_KEY);
+		System.out.println(sb.toString());
+		CCBSign.RSASig rsa = new CCBSign.RSASig();
+
+		rsa.setPublicKey(PayConfig.CCB_B2C_PUBLIC_KEY);
+		System.out.println("-->" + PayConfig.CCB_B2C_PUBLIC_KEY);
+		System.out.println(SIGN);
+		System.out.println(rsa.verifySigature(SIGN, sb.toString()));
 		return rsa.verifySigature(SIGN, sb.toString());
 	}
 
@@ -153,6 +157,14 @@ public class CcbB2cPagePayResultObject extends AbstractPayResultObject {
 
 	public void setSIGN(String sIGN) {
 		SIGN = sIGN;
+	}
+
+	@Override
+	public String toString() {
+		return "CcbB2cPagePayResultObject [BRANCHID=" + BRANCHID + ", CURCODE="
+				+ CURCODE + ", ORDERID=" + ORDERID + ", PAYMENT=" + PAYMENT
+				+ ", POSID=" + POSID + ", REMARK1=" + REMARK1 + ", REMARK2="
+				+ REMARK2 + ", SIGN=" + SIGN + ", SUCCESS=" + SUCCESS + "]";
 	}
 
 }

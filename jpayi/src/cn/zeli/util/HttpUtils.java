@@ -8,6 +8,7 @@ import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -19,13 +20,22 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.security.KeyStore;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
+import java.util.Map.Entry;
 
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.TrustManagerFactory;
+import javax.net.ssl.X509TrustManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -40,7 +50,7 @@ public class HttpUtils {
 	private static final String METHOD_GET = "GET";
 
 	public static final String ISO88591 = "ISO-8859-1";
-	
+
 	/**
 	 * 获取编码字符集<br/>
 	 * 分别从request和response中尝试获取
@@ -57,22 +67,22 @@ public class HttpUtils {
 		String encode = null;
 		return (StringUtils.isEmpty(encode = request.getCharacterEncoding()) ? (StringUtils
 				.isEmpty(encode = response.getCharacterEncoding()) ? encode
-				: Constants.DEFAULT_ENCODING) : encode);
+				: Constants.DEFAULT_ENCODING)
+				: encode);
 
 	}
-	
+
 	public static <T> void bindBeanOnlyString(HttpServletRequest request,
 			T object) throws IntrospectionException, SecurityException,
 			NoSuchFieldException, IllegalArgumentException,
 			IllegalAccessException {
-		
+
 		bindBeanOnlyString(request, object, null);
 	}
-	
-	
+
 	public static <T> void bindBeanOnlyString(HttpServletRequest request,
-			T object, String charset) throws IntrospectionException, SecurityException,
-			NoSuchFieldException, IllegalArgumentException,
+			T object, String charset) throws IntrospectionException,
+			SecurityException, NoSuchFieldException, IllegalArgumentException,
 			IllegalAccessException {
 		Class<?> clazz = object.getClass();
 		BeanInfo bi = Introspector.getBeanInfo(clazz);
@@ -88,7 +98,8 @@ public class HttpUtils {
 			try {
 				field = clazz.getDeclaredField(itemName);
 			} catch (Exception e) {
-				itemName = itemName.substring(0, 1).toUpperCase(Locale.ENGLISH) + itemName.substring(1);
+				itemName = itemName.substring(0, 1).toUpperCase(Locale.ENGLISH)
+						+ itemName.substring(1);
 				try {
 					field = clazz.getDeclaredField(itemName);
 				} catch (Exception e1) {
@@ -103,17 +114,15 @@ public class HttpUtils {
 				field.set(object, paramsMap);
 			} else {
 				Object tmp = paramsMap.get(itemName);
-//				if (null == tmp)
-//					field.set(object, "");
-//				else
-					field.set(object, tmp);
+				// if (null == tmp)
+				// field.set(object, "");
+				// else
+				field.set(object, tmp);
 			}
 
 		}
 	}
 
-	
-	
 	public static Map paramMap(HttpServletRequest request, String charset) {
 		Map<String, String> result = new HashMap<String, String>();
 		Map map = request.getParameterMap();
@@ -126,20 +135,21 @@ public class HttpUtils {
 				valueStr = (i == values.length - 1) ? valueStr + values[i]
 						: valueStr + values[i] + ",";
 			}
-			
+
 			if (null != charset) {// 若有charset转换要求，则直接转换
 				try {
-					result.put(name, new String(
-							valueStr.getBytes(ISO88591), charset));
+					result.put(name, new String(valueStr.getBytes(ISO88591),
+							charset));
 				} catch (UnsupportedEncodingException e) {
 					result.put(name, valueStr);
 				}
 			} else {
-				//GET 参数乱麻解决
+				// GET 参数乱麻解决
 				if (request.getMethod().equals("GET")) {
 					try {
 						result.put(name, new String(
-								valueStr.getBytes(ISO88591), Constants.DEFAULT_CHARSET));
+								valueStr.getBytes(ISO88591),
+								Constants.DEFAULT_CHARSET));
 					} catch (UnsupportedEncodingException e) {
 						// e.printStackTrace();
 						result.put(name, valueStr);
@@ -358,8 +368,8 @@ public class HttpUtils {
 					hasParam = true;
 				}
 
-				query.append(name).append("=")
-						.append(URLEncoder.encode(value, charset));
+				query.append(name).append("=").append(
+						URLEncoder.encode(value, charset));
 			}
 		}
 
@@ -530,5 +540,6 @@ public class HttpUtils {
 	// public static void main(String[] args) {
 	//
 	// }
+
 
 }

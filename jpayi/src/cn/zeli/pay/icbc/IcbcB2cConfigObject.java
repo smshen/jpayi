@@ -17,8 +17,14 @@ public class IcbcB2cConfigObject implements ConfigObject {
 	 */
 	private static final long serialVersionUID = -3509351940033019209L;
 
+	/**
+	 * 商户代码
+	 */
 	private String merID;
 	
+	/**
+	 * 商城账号
+	 */
 	private String merAcct;
 	
 	private String merCert;

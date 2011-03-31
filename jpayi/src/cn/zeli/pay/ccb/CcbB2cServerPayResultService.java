@@ -16,7 +16,7 @@ import cn.zeli.util.HttpUtils;
  * @author Administrator
  *
  */
-public class CcbB2cPagePayResultService implements PayResultService {
+public class CcbB2cServerPayResultService implements PayResultService {
 
 	/* (non-Javadoc)
 	 * @see cn.zeli.pay.PayResultService#doFail(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, cn.zeli.pay.PayResultObject)
@@ -53,7 +53,7 @@ public class CcbB2cPagePayResultService implements PayResultService {
 	 */
 	@Override
 	public PayResultObject payResultObject(HttpServletRequest request) {
-		CcbB2cPagePayResultObject o = new CcbB2cPagePayResultObject();
+		CcbB2cServerPayResultObject o = new CcbB2cServerPayResultObject();
 		try {
 			HttpUtils.bindBeanOnlyString(request, o);
 		} catch (Exception e) {

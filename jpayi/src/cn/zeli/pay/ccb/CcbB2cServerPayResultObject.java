@@ -90,7 +90,7 @@ public class CcbB2cServerPayResultObject extends AbstractPayResultObject {
 		
 		
 		RSASig rsa = new RSASig();
-		rsa.setPublicKey(PayConfig.CCB_B2B_PUBLIC_KEY);
+		rsa.setPublicKey(PayConfig.CCB_B2C_PUBLIC_KEY);
 		return rsa.verifySigature(SIGN, sb.toString());
 	}
 
@@ -172,6 +172,15 @@ public class CcbB2cServerPayResultObject extends AbstractPayResultObject {
 
 	public void setSIGN(String sIGN) {
 		SIGN = sIGN;
+	}
+
+	@Override
+	public String toString() {
+		return "CcbB2cServerPayResultObject [ACC_TYPE=" + ACC_TYPE
+				+ ", BRANCHID=" + BRANCHID + ", CURCODE=" + CURCODE
+				+ ", ORDERID=" + ORDERID + ", PAYMENT=" + PAYMENT + ", POSID="
+				+ POSID + ", REMARK1=" + REMARK1 + ", REMARK2=" + REMARK2
+				+ ", SIGN=" + SIGN + ", SUCCESS=" + SUCCESS + "]";
 	}
 
 }
