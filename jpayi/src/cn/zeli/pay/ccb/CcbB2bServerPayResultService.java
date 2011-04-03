@@ -3,6 +3,8 @@
  */
 package cn.zeli.pay.ccb;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +18,7 @@ import cn.zeli.util.HttpUtils;
  * @author Administrator
  *
  */
-public class CcbB2bPagePayResultService implements PayResultService {
+public class CcbB2bServerPayResultService implements PayResultService {
 
 	/* (non-Javadoc)
 	 * @see cn.zeli.pay.PayResultService#doFail(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, cn.zeli.pay.PayResultObject)
@@ -35,7 +37,15 @@ public class CcbB2bPagePayResultService implements PayResultService {
 	public boolean doSuccess(HttpServletRequest request,
 			HttpServletResponse response, PayResultObject pro) {
 		System.out.println("doSuccess-------------->" + new Date());
-		return false;
+		try {
+			PrintWriter out = response.getWriter();
+			out.write("success");
+			out.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		// 因为重新实现，所以直接返回true，其他返回放弃
+		return true;
 	}
 
 	/* (non-Javadoc)
@@ -53,7 +63,7 @@ public class CcbB2bPagePayResultService implements PayResultService {
 	 */
 	@Override
 	public PayResultObject payResultObject(HttpServletRequest request) {
-		CcbB2bPagePayResultObject o = new CcbB2bPagePayResultObject();
+		CcbB2bServerPayResultObject o = new CcbB2bServerPayResultObject();
 		try {
 			HttpUtils.bindBeanOnlyString(request, o, "GBK");
 		} catch (Exception e) {

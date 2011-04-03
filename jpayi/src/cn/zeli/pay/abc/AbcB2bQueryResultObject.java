@@ -99,7 +99,7 @@ public class AbcB2bQueryResultObject extends AbstractQueryResultObject {
 	public float payAmount() {
 		try {
 			return Float.parseFloat(tResponse.getValue("TrnxAMT"));
-		} catch (NumberFormatException e) {
+		} catch (Exception e) {
 			return 0f;
 		}
 	}

@@ -89,7 +89,7 @@ public class CcbB2cServerPayResultObject extends AbstractPayResultObject {
 		.append("SUCCESS=").append(SUCCESS);
 		
 		
-		RSASig rsa = new RSASig();
+		CCBSign.RSASig rsa = new CCBSign.RSASig();
 		rsa.setPublicKey(PayConfig.CCB_B2C_PUBLIC_KEY);
 		return rsa.verifySigature(SIGN, sb.toString());
 	}

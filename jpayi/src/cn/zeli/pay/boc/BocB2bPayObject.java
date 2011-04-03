@@ -8,6 +8,7 @@ import java.security.GeneralSecurityException;
 
 import cn.zeli.pay.AbstractPayObject;
 import cn.zeli.pay.PayField;
+import cn.zeli.util.DateUtil;
 import cn.zeli.util.FileUtil;
 
 /**
@@ -80,7 +81,7 @@ public class BocB2bPayObject extends AbstractPayObject {
 	 * 格式：YYYYMMDD24HHMMSS; 其中时间为24小时格式，如下午3点15表示为151500
 	 */
 	@PayField(required = true, max = 14)
-	private String orderTime;
+	private String orderTime = DateUtil.getCurrentDate(DateUtil.SHORT_FORMAT_TIME);
 
 	/**
 	 * 订单说明

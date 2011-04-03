@@ -27,7 +27,7 @@ public abstract class AbstractQueryResultObject implements QueryResultObject {
 	protected float toFloat(String str) {
 		try {
 			return Float.parseFloat(str);
-		} catch (NumberFormatException e) {
+		} catch (Exception e) {
 			return 0f;
 		}
 	}

@@ -44,7 +44,7 @@ public class AbcB2bPayResultObject extends TrnxResult implements
 	public float payAmount() {
 		try {
 			return Float.parseFloat(getValue("TrnxAMT"));
-		} catch (NumberFormatException e) {
+		} catch (Exception e) {
 			return 0f;
 		}
 	}

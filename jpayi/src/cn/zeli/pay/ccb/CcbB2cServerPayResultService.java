@@ -3,6 +3,8 @@
  */
 package cn.zeli.pay.ccb;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
@@ -55,7 +57,7 @@ public class CcbB2cServerPayResultService implements PayResultService {
 	public PayResultObject payResultObject(HttpServletRequest request) {
 		CcbB2cServerPayResultObject o = new CcbB2cServerPayResultObject();
 		try {
-			HttpUtils.bindBeanOnlyString(request, o);
+			HttpUtils.bindBeanOnlyString(request, o, "GBK");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

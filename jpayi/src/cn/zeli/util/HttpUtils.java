@@ -83,11 +83,13 @@ public class HttpUtils {
 	public static <T> void bindBeanOnlyString(HttpServletRequest request,
 			T object, String charset) throws IntrospectionException,
 			SecurityException, NoSuchFieldException, IllegalArgumentException,
-			IllegalAccessException {
+			IllegalAccessException {	
 		Class<?> clazz = object.getClass();
 		BeanInfo bi = Introspector.getBeanInfo(clazz);
 		PropertyDescriptor[] pds = bi.getPropertyDescriptors();
 		Map paramsMap = paramMap(request, charset);
+		
+
 		for (PropertyDescriptor pd : pds) {
 			String itemName = pd.getName();
 			if ("class".equals(itemName)) {

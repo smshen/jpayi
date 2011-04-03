@@ -55,7 +55,7 @@ public class CcbB2cPagePayResultService implements PayResultService {
 	public PayResultObject payResultObject(HttpServletRequest request) {
 		CcbB2cPagePayResultObject o = new CcbB2cPagePayResultObject();
 		try {
-			HttpUtils.bindBeanOnlyString(request, o);
+			HttpUtils.bindBeanOnlyString(request, o, "GBK");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

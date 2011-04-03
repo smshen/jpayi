@@ -17,7 +17,7 @@ public abstract class AbstractPayResultObject implements PayResultObject {
 	protected float toFloat(String amount) {
 		try {
 			return Float.parseFloat(amount);
-		} catch (NumberFormatException e) {
+		} catch (Exception e) {
 			return 0f;
 		}
 	}

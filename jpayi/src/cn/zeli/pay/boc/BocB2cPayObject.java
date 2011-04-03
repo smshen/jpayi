@@ -5,11 +5,10 @@ package cn.zeli.pay.boc;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import cn.zeli.pay.AbstractPayObject;
 import cn.zeli.pay.PayField;
+import cn.zeli.util.DateUtil;
 import cn.zeli.util.FileUtil;
 
 /**
@@ -75,7 +74,7 @@ public class BocB2cPayObject extends AbstractPayObject {
 	 * 其中时间为24小时格式，如下午3点15表示为151500
 	 */
 	@PayField(required = true, length = 14, regex = "^[1-9]{1}[0-9]{3}(0[1-9]{1}|1[0-2]{1})([0-2]{1}[0-9]{1}|3[0-1]{1})([0-1]{1}[0-9]{1}|2[0-3]{1})[0-5]{1}[0-9]{1}[0-5]{1}[0-9]{1}$")
-	private String orderTime;
+	private String orderTime = DateUtil.getCurrentDate(DateUtil.SHORT_FORMAT_TIME);
 
 	/**
 	 * 订单说明.

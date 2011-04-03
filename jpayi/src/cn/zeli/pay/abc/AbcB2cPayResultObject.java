@@ -47,7 +47,7 @@ public class AbcB2cPayResultObject extends PaymentResult implements
 	public float payAmount() {
 		try {
 			return Float.parseFloat(getValue("Amount"));
-		} catch (NumberFormatException e) {
+		} catch (Exception e) {
 			return 0l;
 		}
 	}
