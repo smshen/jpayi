@@ -45,7 +45,7 @@ public class IcbcB2cQueryResultObject extends AbstractIcbcQueryResultObject {
 //		String rsp = HttpUtils.doPostWithHttps("https://B2C.icbc.com.cn/servlet/ICBCINBSEBusinessServlet", map, "GBK", 10000, 10000);
 //		System.out.println(rsp);
 		
-		IcbcHelper.queryHelper("E:\\liuzeng\\workspace\\jpayi\\src\\cert\\icbc\\b2b\\", map, "https://B2C.icbc.com.cn/servlet/ICBCINBSEBusinessServlet", "GBK");
+		IcbcHelper.queryHelper("F:\\icbc\\B2B\\test.jks", "123456", map, "https://B2C.icbc.com.cn/servlet/ICBCINBSEBusinessServlet", "GBK");
 		
 	}
 

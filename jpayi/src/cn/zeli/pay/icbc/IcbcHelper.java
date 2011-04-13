@@ -59,10 +59,9 @@ public class IcbcHelper {
 
 	} };
 
-	public static Map<Object, Object> queryHelper(String path, Map params, String apiUrl, String charset) {
+	public static Map<Object, Object> queryHelper(String pksFile, String password, Map params, String apiUrl, String charset) {
 		Map<Object, Object> map = new HashMap<Object, Object>();
-		String keyf = path + "***.e***";
-		String pass = "password";
+		//String keyf = path + "***.e***";
 
 		SSLSocketFactory ssf = null;
 //		OutputStreamWriter out = null;
@@ -78,9 +77,9 @@ public class IcbcHelper {
 			KeyStore ks = KeyStore.getInstance("PKCS12");
 
 			// load keystore
-			ks.load(new FileInputStream(keyf), pass.toCharArray());
+			ks.load(new FileInputStream(pksFile), password.toCharArray());
 
-			kmf.init(ks, pass.toCharArray());
+			kmf.init(ks, password.toCharArray());
 
 			ctx.init(kmf.getKeyManagers(), trustAllCerts, null);
 
