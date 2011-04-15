@@ -181,7 +181,7 @@ public class IcbcB2bPayResultObject extends AbstractPayResultObject {
 	}
 
 	public String bankInfo() {
-		return "ICBC|B2C";
+		return "ICBC|B2B";
 	}
 
 	/* (non-Javadoc)
