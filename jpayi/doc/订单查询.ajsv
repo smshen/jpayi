@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--AgileJ Ltd. (http://www.agilej.com)-->
+<ajsv>
+    <diagram style="defaultDiagramStyle" version="1.7.3.v20110116-2128">
+        <class className="cn.zeli.pay.QueryObject" project="jpayi" xLocation="289" yLocation="74"/>
+        <class className="cn.zeli.pay.abc.AbcB2bQueryResultObject" project="jpayi" xLocation="-230" yLocation="-714"/>
+        <class className="cn.zeli.pay.abc.AbcB2cQueryResultObject" project="jpayi" xLocation="599" yLocation="-455"/>
+        <class className="cn.zeli.pay.icbc.IcbcB2bQueryResultObject" project="jpayi" xLocation="-62" yLocation="328"/>
+        <class className="cn.zeli.pay.icbc.IcbcB2cQueryResultObject" project="jpayi" xLocation="728" yLocation="380"/>
+        <class className="cn.zeli.pay.QueryResultObject" project="jpayi" xLocation="-118" yLocation="55"/>
+        <class className="cn.zeli.pay.AbstractQueryResultObject" project="jpayi" xLocation="-93" yLocation="59"/>
+        <class className="cn.zeli.pay.QueryResultObjectHelper" project="jpayi" xLocation="823" yLocation="-652"/>
+    </diagram>
+</ajsv>

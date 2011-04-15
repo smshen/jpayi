@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--AgileJ Ltd. (http://www.agilej.com)-->
+<ajsv>
+    <diagram style="defaultDiagramStyle" version="1.7.3.v20110116-2128">
+        <class className="cn.zeli.pay.PayResultObject" project="jpayi" xLocation="252" yLocation="186"/>
+        <class className="cn.zeli.pay.abc.AbcB2bPayResultObject" project="jpayi" xLocation="688" yLocation="-65"/>
+        <class className="cn.zeli.pay.icbc.IcbcB2bPayResultObject" project="jpayi" xLocation="1289" yLocation="690"/>
+        <class className="cn.zeli.pay.AbstractPayResultObject" project="jpayi" xLocation="277" yLocation="-41"/>
+        <class className="cn.zeli.pay.QueryResultObject" project="jpayi" xLocation="321" yLocation="587"/>
+        <class className="cn.zeli.pay.boc.BocB2bPayResultObject" project="jpayi" xLocation="-1029" yLocation="77"/>
+        <class className="cn.zeli.pay.boc.BocB2cPayResultObject" project="jpayi" xLocation="-353" yLocation="-184"/>
+        <class className="cn.zeli.pay.ccb.CcbB2bPagePayResultObject" project="jpayi" xLocation="-647" yLocation="1225"/>
+        <class className="cn.zeli.pay.ccb.CcbB2cPagePayResultObject" project="jpayi" xLocation="281" yLocation="-932"/>
+        <class className="cn.zeli.pay.ccb.CcbB2cServerPayResultObject" project="jpayi" xLocation="26" yLocation="881"/>
+        <class className="cn.zeli.pay.chinabank.ChinabankPayResultObject" project="jpayi" xLocation="1303" yLocation="-158"/>
+        <class className="cn.zeli.pay.icbc.IcbcB2cPayResultObject" project="jpayi" xLocation="596" yLocation="840"/>
+        <class className="cn.zeli.pay.abc.AbcB2cPayResultObject" project="jpayi" xLocation="576" yLocation="261"/>
+        <class className="cn.zeli.pay.PayResultService" project="jpayi" xLocation="-701" yLocation="-749"/>
+        <class className="cn.zeli.pay.abc.AbcB2bServerPayResultService" project="jpayi" xLocation="-1596" yLocation="-1027"/>
+        <class className="cn.zeli.pay.abc.AbcB2cServerPayResultService" project="jpayi" xLocation="-812" yLocation="-1553"/>
+        <class className="cn.zeli.pay.boc.BocB2bPayResultService" project="jpayi" xLocation="81" yLocation="-1547"/>
+        <class className="cn.zeli.pay.boc.BocB2cPagePayResultService" project="jpayi" xLocation="-839" yLocation="-1286"/>
+        <class className="cn.zeli.pay.boc.BocB2cServerPayResultService" project="jpayi" xLocation="56" yLocation="-1280"/>
+        <class className="cn.zeli.pay.ccb.CcbB2bPagePayResultService" project="jpayi" xLocation="-1243" yLocation="-191"/>
+        <class className="cn.zeli.pay.ccb.CcbB2bServerPayResultService" project="jpayi" xLocation="-609" yLocation="-1015"/>
+        <class className="cn.zeli.pay.ccb.CcbB2cPagePayResultService" project="jpayi" xLocation="-1603" yLocation="-739"/>
+        <class className="cn.zeli.pay.ccb.CcbB2cServerPayResultService" project="jpayi" xLocation="834" yLocation="-710"/>
+        <class className="cn.zeli.pay.chinabank.ChinabankB2cPagePayResultService" project="jpayi" xLocation="-1524" yLocation="-458"/>
+        <class className="cn.zeli.pay.chinabank.ChinabankB2cServerPayResultService" project="jpayi" xLocation="-431" yLocation="842"/>
+        <class className="cn.zeli.pay.icbc.IcbcB2bPayResultService" project="jpayi" xLocation="1738" yLocation="-432"/>
+        <class className="cn.zeli.pay.icbc.IcbcB2bServerPayResultService" project="jpayi" xLocation="837" yLocation="-428"/>
+        <class className="cn.zeli.pay.icbc.IcbcB2cServerPayResultService" project="jpayi" xLocation="-620" yLocation="-457"/>
+        <class className="cn.zeli.pay.NotifyServlet" project="jpayi" xLocation="1887" yLocation="-1135"/>
+    </diagram>
+</ajsv>

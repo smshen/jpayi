@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--AgileJ Ltd. (http://www.agilej.com)-->
+<ajsv>
+    <diagram style="defaultDiagramStyle" version="1.7.3.v20110116-2128">
+        <class className="cn.zeli.pay.PayObject" project="jpayi" xLocation="288" yLocation="220"/>
+        <class className="cn.zeli.pay.abc.AbcB2cPayObject" project="jpayi" xLocation="299" yLocation="-26"/>
+        <class className="cn.zeli.pay.AbstractPayObject" project="jpayi" xLocation="287" yLocation="446"/>
+        <class className="cn.zeli.pay.boc.BocB2bPayObject" project="jpayi" xLocation="894" yLocation="119"/>
+        <class className="cn.zeli.pay.boc.BocB2cPayObject" project="jpayi" xLocation="-881" yLocation="731"/>
+        <class className="cn.zeli.pay.ccb.CcbB2bPayObject" project="jpayi" xLocation="-338" yLocation="227"/>
+        <class className="cn.zeli.pay.ccb.CcbB2cPayObject" project="jpayi" xLocation="-326" yLocation="1053"/>
+        <class className="cn.zeli.pay.chinabank.ChinabankPayObject" project="jpayi" xLocation="244" yLocation="721"/>
+        <class className="cn.zeli.pay.icbc.IcbcB2bPayObject" project="jpayi" xLocation="1576" yLocation="736"/>
+        <class className="cn.zeli.pay.icbc.IcbcB2cPayObject" project="jpayi" xLocation="891" yLocation="826"/>
+        <class className="cn.zeli.pay.AutoPayServlet" project="jpayi" xLocation="-825" yLocation="-291"/>
+    </diagram>
+</ajsv>
