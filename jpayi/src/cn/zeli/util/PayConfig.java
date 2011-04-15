@@ -48,11 +48,16 @@ public final class PayConfig {
 	public static String ICBC_B2C_PRIVATE_KEY_PATH = getStringWithOutSpace("icbc.b2c.user.key.private", "");
 	public static String ICBC_B2C_PUBLIC_KEY_PATH = getStringWithOutSpace("icbc.b2c.user.key.public", "");
 	public static String ICBC_B2C_BANK_PUBLIC_KEY_PATH = getStringWithOutSpace("icbc.b2c.bank.key.public", "");
-
+	public static String ICBC_B2C_USER_KEY_PASSWORD = getStringWithOutSpace("icbc.b2c.user.key.password", "");
+	
 	public static String ICBC_B2B_PRIVATE_KEY_PATH = getStringWithOutSpace("icbc.b2b.user.key.private", "");
 	public static String ICBC_B2B_PUBLIC_KEY_PATH = getStringWithOutSpace("icbc.b2b.user.key.public", "");
 	public static String ICBC_B2B_BANK_PUBLIC_KEY_PATH = getStringWithOutSpace("icbc.b2b.bank.key.public", "");
+	public static String ICBC_B2B_USER_KEY_PASSWORD = getStringWithOutSpace("icbc.b2b.user.key.password", "");
 
+	public static String ICBC_QUERY_PFX = getStringWithOutSpace("icbc.query.pfx", "");
+	public static String ICBC_QUERY_PFX_PASSWORD = getStringWithOutSpace("icbc.query.pfx.password", "");
+	
 	public static String CCB_B2B_PUBLIC_KEY = getStringWithOutSpace("ccb.b2b.key.public", "");
 	public static String CCB_B2C_PUBLIC_KEY = getStringWithOutSpace("ccb.b2c.key.public", "");
 	

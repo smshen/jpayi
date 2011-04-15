@@ -32,6 +32,9 @@ import cn.zeli.util.HttpUtils;
  */
 public class IcbcHelper {
 
+	public static final String SUCCESS = "success";
+	public static final String CONTENT = "content";
+	
 	/**
 	 * 所有主机默认通过
 	 */
@@ -64,7 +67,7 @@ public class IcbcHelper {
 		//String keyf = path + "***.e***";
 
 		SSLSocketFactory ssf = null;
-//		OutputStreamWriter out = null;
+//		PrintWriter out = null;
 		OutputStream out = null;
 		BufferedReader in = null;
 		String result = "";
@@ -99,7 +102,8 @@ public class IcbcHelper {
 			conn
 					.setRequestProperty(
 							"user-agent",
-							"Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; Trident/4.0; .NET CLR 2.0.50727; .NET CLR 3.0.4506.2152; SV1)");
+							"Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0; .NET CLR 1.1.4322; .NET CLR 2.0.50727; InfoPath.1)");
+//			conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 
 			conn.setRequestMethod("POST");
 			// 发送POST请求必须设置如下两行
@@ -112,11 +116,13 @@ public class IcbcHelper {
 			if (null != query) {
 				content = query.getBytes(charset);
 			}
+//			System.out.println(java.net.URLDecoder.decode(query));
 			
 			// 获取URLConnection对象对应的输出流
-//			out = new OutputStreamWriter(conn.getOutputStream());
+//			out = new PrintWriter(conn.getOutputStream());
+//			out.print(query);
 			out = conn.getOutputStream();
-
+//
 			out.write(content);
 			// flush输出流的缓冲
 			out.flush();
@@ -131,15 +137,19 @@ public class IcbcHelper {
 
 			result = java.net.URLDecoder.decode(result, charset).trim();
 
-			System.out.println(result);
-//			if (result.startsWith("<?xml")) {
-//
-//			} else {
-//				map.
-//			}
+//			System.out.println(result);
+			
+			if (result.startsWith("<?xml")) {
+				map.put(SUCCESS, true);
+			} else {
+				map.put(SUCCESS, false);
+			}
+			map.put(CONTENT, result);
 
 		} catch (Exception e) {
-			e.printStackTrace();
+//			e.printStackTrace();// log
+			map.put(SUCCESS, false);
+			map.put(CONTENT, e.toString());
 		} finally {
 			try {
 				if (null != out) {

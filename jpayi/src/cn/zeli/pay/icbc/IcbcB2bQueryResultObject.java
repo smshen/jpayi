@@ -18,7 +18,7 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
  * @author lz
  * 
  */
-public class IcbcB2cQueryResultObject extends AbstractIcbcQueryResultObject {
+public class IcbcB2bQueryResultObject extends AbstractIcbcQueryResultObject {
 
 	/**
 	 * 
@@ -43,24 +43,24 @@ public class IcbcB2cQueryResultObject extends AbstractIcbcQueryResultObject {
 	 */
 	public void process() throws Exception {
 		Map map = new HashMap();
-		map.put("APIName", ((IcbcB2cQueryObject) queryObject).getAPIName());
+		map.put("APIName", ((IcbcB2bQueryObject) queryObject).getAPIName());
 		map.put("APIVersion",
-				((IcbcB2cQueryObject) queryObject).getAPIVersion());
+				((IcbcB2bQueryObject) queryObject).getAPIVersion());
 		map.put("MerReqData",
-				((IcbcB2cQueryObject) queryObject).getMerReqData());
+				((IcbcB2bQueryObject) queryObject).getMerReqData());
 
 		Map result = IcbcHelper
 				.queryHelper(
 						PayConfig.ICBC_QUERY_PFX,//"C:\\Documents and Settings\\Administrator\\桌面\\lxhgdg.e.1611.pfx",
 						PayConfig.ICBC_QUERY_PFX_PASSWORD,//"123456",
 						map,
-//						"https://B2C.icbc.com.cn/servlet/ICBCINBSEBusinessServlet",
+//						"https://B2B.icbc.com.cn/servlet/ICBCINBSEBusinessServlet",
 						"https://corporbank.icbc.com.cn/servlet/ICBCINBSEBusinessServlet",
 						"GBK");
 		
 		Boolean flag = false;
 		if (null == result || null == (flag = (Boolean) result.get(IcbcHelper.SUCCESS))) {
-			throw new Exception("工行B2C查询获取Order对象错误！");
+			throw new Exception("工行B2B查询获取Order对象错误！");
 		}
 		if (flag) {
 			// 查询得到返回，则将接收到xml转换成对象
@@ -72,11 +72,11 @@ public class IcbcB2cQueryResultObject extends AbstractIcbcQueryResultObject {
 			icbcapi = (ICBCAPI) xstream.fromXML((String) result.get(IcbcHelper.CONTENT));
 //			System.out.println(icbcapi);
 			if (null == icbcapi || null == icbcapi.getOut()) {
-				throw new Exception("工行B2C商户订单查询失败：ErrorMessage:[返回xml无法正常转换为ICBCAPI对象]");
+				throw new Exception("工行B2B商户订单查询失败：ErrorMessage:[返回xml无法正常转换为ICBCAPI对象]");
 			}
 		} else {
 			String errorMsg = getErrorMsg((String) result.get(IcbcHelper.CONTENT));
-			throw new Exception("工行B2C商户订单查询失败：ErrorMessage:["
+			throw new Exception("工行B2B商户订单查询失败：ErrorMessage:["
 					+ errorMsg + "]");
 		}
 
@@ -89,7 +89,7 @@ public class IcbcB2cQueryResultObject extends AbstractIcbcQueryResultObject {
 	 * cn.zeli.pay.QueryResultObject#setQueryObject(cn.zeli.pay.QueryObject)
 	 */
 	public void setQueryObject(QueryObject queryObject) {
-		this.queryObject = (IcbcB2cQueryObject) queryObject;
+		this.queryObject = (IcbcB2bQueryObject) queryObject;
 	}
 
 	/*
@@ -108,17 +108,23 @@ public class IcbcB2cQueryResultObject extends AbstractIcbcQueryResultObject {
 	 */
 	public String statusRemark() {
 		String status = status();
-		if ("0".equals(status)) {
-			return "支付成功，未清算";
-		}
-		if ("1".equals(status)) {
-			return "支付成功，已清算";
-		}
-		if ("2".equals(status)) {
-			return "支付失败";
-		}
 		if ("3".equals(status)) {
-			return "支付可疑交易";
+			return "指令处理完成，转账成功";
+		}
+		if ("4".equals(status)) {
+			return "指令处理失败，转账未完成";
+		}
+		if ("6".equals(status)) {
+			return "指令超过支付人的限额，正在等待主管会计批复";
+		}
+		if ("7".equals(status)) {
+			return "指令超过支付人的限额，正在等待主管会计第二次批复";
+		}
+		if ("8".equals(status)) {
+			return "指令超过支付人的限额，被主管会计否决";
+		}
+		if ("9".equals(status)) {
+			return "银行正在处理（可疑）";
 		}
 		return "未知";
 	}
@@ -129,7 +135,7 @@ public class IcbcB2cQueryResultObject extends AbstractIcbcQueryResultObject {
 	 * @see cn.zeli.pay.PayResultObject#bankInfo()
 	 */
 	public String bankInfo() {
-		return "ICBC|B2C";
+		return "ICBC|B2B";
 	}
 
 	/*
@@ -157,7 +163,7 @@ public class IcbcB2cQueryResultObject extends AbstractIcbcQueryResultObject {
 	 */
 	public boolean success() {
 		String status = status();
-		return "0".equals(status) || "1".equals(status);
+		return "3".equals(status);
 	}
 
 	/**
@@ -166,25 +172,25 @@ public class IcbcB2cQueryResultObject extends AbstractIcbcQueryResultObject {
 	 * @throws Exception
 	 */
 	public static void main(String... str) throws Exception {
-		// IcbcB2cQueryObject iqo = new IcbcB2cQueryObject();
+		// IcbcB2bQueryObject iqo = new IcbcB2bQueryObject();
 		// System.out.println(iqo.getMerReqData());
 
-		IcbcB2cQueryResultObject iqro = new IcbcB2cQueryResultObject();
-		IcbcB2cConfigObject icbcB2co = new IcbcB2cConfigObject();
-		icbcB2co.setMerID("1611EC23589693");
-		icbcB2co.setMerAcct("1611002709200086326");
-//		icbcB2co.setPassword("123456");
-		IcbcB2cQueryObject iqo = new IcbcB2cQueryObject();
-		iqo.setIcbcB2cConfigObject(icbcB2co);
+		IcbcB2bQueryResultObject iqro = new IcbcB2bQueryResultObject();
+		IcbcB2bConfigObject icbcB2bo = new IcbcB2bConfigObject();
+		icbcB2bo.setShop_code("1611EC13401181");
+		icbcB2bo.setShop_acc_num("1611002319022123647");
+//		icbcB2bo.setPayeeAcct("1611002709200086326");
+		IcbcB2bQueryObject iqo = new IcbcB2bQueryObject();
+		iqo.setIcbcB2bConfigObject(icbcB2bo);
 		
-		iqo.setOrderNum("YF1104131316031039");
+		iqo.setOrderNum("YF1104131722201280");
 		iqo.setTranDate(DateUtil.getDateFromString("20110413", DateUtil.SHORT_FORMAT_DAY));
 		
 		iqro.setQueryObject(iqo);
 		iqro.process();
 	}
 
-	public static class IcbcB2cQueryObject implements QueryObject {
+	public static class IcbcB2bQueryObject implements QueryObject {
 
 		/**
 		 * 
@@ -197,9 +203,9 @@ public class IcbcB2cQueryResultObject extends AbstractIcbcQueryResultObject {
 		private String APIName = "EAPI";
 
 		/**
-		 * 口版本号. =15 必输，签名,上送”001.001.002.001”
+		 * 口版本号. =15 必输，签名,上送”001.001.001.001”
 		 */
-		private String APIVersion = "001.001.002.001";// B2C
+		private String APIVersion = "001.001.001.001";// B2B
 
 		/**
 		 * 请求数据,xml包（格式见下）
@@ -209,7 +215,7 @@ public class IcbcB2cQueryResultObject extends AbstractIcbcQueryResultObject {
 		private String orderNum;
 		private Date tranDate;
 		
-		private IcbcB2cConfigObject icbcB2cConfigObject;
+		private IcbcB2bConfigObject icbcB2bConfigObject;
 
 		public String getAPIName() {
 			return APIName;
@@ -236,8 +242,8 @@ public class IcbcB2cQueryResultObject extends AbstractIcbcQueryResultObject {
 			IN in = new IN();
 			in.setOrderNum(orderNum);
 			in.setTranDate(DateUtil.getDateFormat(tranDate, DateUtil.SHORT_FORMAT_DAY));
-			in.setShopCode(icbcB2cConfigObject.getMerID());
-			in.setShopAccount(icbcB2cConfigObject.getMerAcct());
+			in.setShopCode(icbcB2bConfigObject.getShop_code());
+			in.setShopAccount(icbcB2bConfigObject.getShop_acc_num());
 			ibcapi.setIn(in);
 
 			return "<?xml version=\"1.0\" encoding=\"GBK\" standalone=\"no\"?>"
@@ -249,13 +255,13 @@ public class IcbcB2cQueryResultObject extends AbstractIcbcQueryResultObject {
 			MerReqData = merReqData;
 		}
 
-		public IcbcB2cConfigObject getIcbcB2cConfigObject() {
-			return icbcB2cConfigObject;
+		public IcbcB2bConfigObject getIcbcB2bConfigObject() {
+			return icbcB2bConfigObject;
 		}
 
-		public void setIcbcB2cConfigObject(
-				IcbcB2cConfigObject icbcB2cConfigObject) {
-			this.icbcB2cConfigObject = icbcB2cConfigObject;
+		public void setIcbcB2bConfigObject(
+				IcbcB2bConfigObject icbcB2bConfigObject) {
+			this.icbcB2bConfigObject = icbcB2bConfigObject;
 		}
 
 		public String getOrderNum() {
@@ -276,54 +282,7 @@ public class IcbcB2cQueryResultObject extends AbstractIcbcQueryResultObject {
 
 	}
 
-//	public static class IN {
-//
-//		private String orderNum;
-//		private String tranDate;
-//		private String ShopCode;
-//		private String ShopAccount;
-//
-//		public String getOrderNum() {
-//			return orderNum;
-//		}
-//
-//		public void setOrderNum(String orderNum) {
-//			this.orderNum = orderNum;
-//		}
-//
-//		public String getTranDate() {
-//			return tranDate;
-//		}
-//
-//		public void setTranDate(String tranDate) {
-//			this.tranDate = tranDate;
-//		}
-//
-//		public String getShopCode() {
-//			return ShopCode;
-//		}
-//
-//		public void setShopCode(String shopCode) {
-//			ShopCode = shopCode;
-//		}
-//
-//		public String getShopAccount() {
-//			return ShopAccount;
-//		}
-//
-//		public void setShopAccount(String shopAccount) {
-//			ShopAccount = shopAccount;
-//		}
-//
-//		@Override
-//		public String toString() {
-//			return "IN [orderNum=" + orderNum + ", tranDate=" + tranDate
-//					+ ", ShopCode=" + ShopCode + ", ShopAccount=" + ShopAccount
-//					+ "]";
-//		}
-//		
-//	}
-//
+
 	public static class ICBCAPI {
 		private IN in;
 		private PUB pub;
@@ -359,35 +318,8 @@ public class IcbcB2cQueryResultObject extends AbstractIcbcQueryResultObject {
 		}
 
 	}
-//
-//	public static class PUB {
-//		private String APIName;
-//		private String APIVersion;
-//
-//		public String getAPIName() {
-//			return APIName;
-//		}
-//
-//		public void setAPIName(String aPIName) {
-//			APIName = aPIName;
-//		}
-//
-//		public String getAPIVersion() {
-//			return APIVersion;
-//		}
-//
-//		public void setAPIVersion(String aPIVersion) {
-//			APIVersion = aPIVersion;
-//		}
-//
-//		@Override
-//		public String toString() {
-//			return "PUB [APIName=" + APIName + ", APIVersion=" + APIVersion
-//					+ "]";
-//		}
-//
-//	}
-//
+
+
 	public static class OUT {
 		/**
 		 * 指令序号
@@ -421,7 +353,7 @@ public class IcbcB2cQueryResultObject extends AbstractIcbcQueryResultObject {
 		/**
 		 * 商城账号
 		 */
-		private String ShopAccount;
+		private String PayeeAcct;
 
 		/**
 		 * 商城户名
@@ -501,12 +433,12 @@ public class IcbcB2cQueryResultObject extends AbstractIcbcQueryResultObject {
 			this.tranTime = tranTime;
 		}
 
-		public String getShopAccount() {
-			return ShopAccount;
+		public String getPayeeAcct() {
+			return PayeeAcct;
 		}
 
-		public void setShopAccount(String shopAccount) {
-			ShopAccount = shopAccount;
+		public void setPayeeAcct(String payeeAcct) {
+			PayeeAcct = payeeAcct;
 		}
 
 		public String getPayeeName() {
@@ -562,11 +494,10 @@ public class IcbcB2cQueryResultObject extends AbstractIcbcQueryResultObject {
 			return "OUT [tranSerialNum=" + tranSerialNum + ", tranStat="
 					+ tranStat + ", bankRem=" + bankRem + ", amount=" + amount
 					+ ", currType=" + currType + ", tranTime=" + tranTime
-					+ ", ShopAccount=" + ShopAccount + ", PayeeName="
-					+ PayeeName + ", JoinFlag=" + JoinFlag + ", MerJoinFlag="
-					+ MerJoinFlag + ", CustJoinFlag=" + CustJoinFlag
-					+ ", CustJoinNum=" + CustJoinNum + ", CertID=" + CertID
-					+ "]";
+					+ ", PayeeAcct=" + PayeeAcct + ", PayeeName=" + PayeeName
+					+ ", JoinFlag=" + JoinFlag + ", MerJoinFlag=" + MerJoinFlag
+					+ ", CustJoinFlag=" + CustJoinFlag + ", CustJoinNum="
+					+ CustJoinNum + ", CertID=" + CertID + "]";
 		}
 
 	}

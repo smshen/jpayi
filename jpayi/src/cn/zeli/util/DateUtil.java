@@ -3,6 +3,7 @@
  */
 package cn.zeli.util;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -47,7 +48,16 @@ public class DateUtil {
 		SimpleDateFormat sdf = new SimpleDateFormat(format);
 		return sdf.format(date);
 	}
-	
+
+	public static Date getDateFromString(String strDate, String format) {
+		try {
+			SimpleDateFormat sdf = new SimpleDateFormat(format);
+			Date d = sdf.parse(strDate);
+			return d;
+		} catch (ParseException e) {
+			return new Date();
+		}
+	}
 	
 	/**
 	 * @param args
