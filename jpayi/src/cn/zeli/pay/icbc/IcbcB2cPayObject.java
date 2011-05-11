@@ -88,7 +88,7 @@ public class IcbcB2cPayObject extends AbstractPayObject {
 	 * ；取值“AG”：在交易完成后不通知商户。商户需使用浏览器登录工行的B2C商户服务网站，或者使用工行提供的客户端程序API主动获取通知信息。
 	 */
 	@PayField(required = true, length = 2)
-	private String notifyType;
+	private String notifyType = "HS";
 
 	/**
 	 * [接收支付结果信息通知程序地址] MAX(200)

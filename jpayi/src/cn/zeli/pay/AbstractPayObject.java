@@ -7,6 +7,8 @@ import java.beans.BeanInfo;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -61,6 +63,49 @@ public class AbstractPayObject implements PayObject {
 				PayField f = field.getAnnotation(PayField.class);
 
 				field.setAccessible(true);
+				
+//				System.out.println(this.getClass().getSimpleName() + "   ->" + itemName);
+				/*
+				 * 2011-5-11 修改 
+				 * 判断内部属性是否为该类的子类，若是，且不为空，则必须进行验证；若是，却为空，则也验证不通过
+				 */
+				if (Collection.class.isAssignableFrom(field.getType())) {
+					Collection c = (Collection) field.get(this);
+					if (null != c && !c.isEmpty()) {
+						Iterator itr = c.iterator();
+						while (itr.hasNext()) {
+							Object it = itr.next();
+							if (null != it && it instanceof AbstractPayObject) {
+								ValidationMsg vm = ((AbstractPayObject) it).validation();
+								if (!vm.isSuccess()) {
+									msg.setSuccess(false);
+									msg.addAll(vm.getList());
+									break;// 是否需要全验证？若需要则去除该句
+								}
+							}
+						}
+					}
+					continue;
+				}
+				if (AbstractPayObject.class.isAssignableFrom(field.getType())) {
+					AbstractPayObject apo = (AbstractPayObject) field.get(this);
+					if (null != apo) {
+						ValidationMsg vm = apo.validation();
+						if (!vm.isSuccess()) {
+							msg.setSuccess(false);
+							msg.addAll(vm.getList());
+						}
+					} else {// 若是，却为空，则也验证不通过
+						msg.setSuccess(false);
+						msg.addList(new Msg(itemName, Msg.ERROR_REQUIRED,
+								new StringBuffer().append(itemName)
+										.append(" <").append(field.getType().getSimpleName()).append("> can not be null.").toString()));
+					}
+					continue;
+				}
+				
+				
+
 				String value = (String) field.get(this);
 
 				if (null == f)
@@ -169,11 +214,13 @@ public class AbstractPayObject implements PayObject {
 				PayField f = field.getAnnotation(PayField.class);
 
 				field.setAccessible(true);
-				String value = (String) field.get(this);
 
 //				if (null == f || (null != f && !f.submit()))
 				if (null != f && !f.submit())
 					continue;
+				
+				// 2011-5-11 
+				String value = (String) field.get(this);
 
 				if (null == value)
 					value = "";

@@ -5,6 +5,7 @@ package cn.zeli.pay;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -51,6 +52,13 @@ public class ValidationMsg implements Serializable {
 			this.list = new ArrayList<Msg>();
 		
 		return this.list.add(msg);
+	}
+	
+	public boolean addAll(Collection<Msg> all) {
+		if (null == this.list)
+			this.list = new ArrayList<Msg>();
+		
+		return this.list.addAll(all);
 	}
 
 
