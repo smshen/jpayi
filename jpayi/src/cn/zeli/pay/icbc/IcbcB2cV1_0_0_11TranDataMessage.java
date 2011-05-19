@@ -73,13 +73,13 @@ public class IcbcB2cV1_0_0_11TranDataMessage extends AbstractPayObject {
 	 * [买家联系电话] MAX(20) 选输，当商户上送goodsType值为“0”，该项必输
 	 */
 	@PayField(required = false, max = 20)
-	private String merCustomPhone = "";
+	private String merCustomPhone = "merCustomPhone";
 	
 	/**
 	 * [收货地址] MAX(200) 选输，当商户上送goodsType值为“1”，该项必输
 	 */
 	@PayField(required = false, max = 200)
-	private String goodsAddress = "";
+	private String goodsAddress = "收货地址";
 	
 	/**
 	 * [订单备注] MAX(200) 选输，工行在支付页面显示该信息。

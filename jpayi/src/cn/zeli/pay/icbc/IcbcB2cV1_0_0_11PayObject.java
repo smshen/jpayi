@@ -95,12 +95,13 @@ public class IcbcB2cV1_0_0_11PayObject extends AbstractPayObject {
 		xstream.alias("message", IcbcB2cV1_0_0_11TranDataMessage.class);
 		xstream.alias("B2CReq", IcbcB2cV1_0_0_11TranData.class);
 
-		String xmlString =  "<?xml version=\"1.0\" encoding=\"GBK\" standalone=\"no\"?>\n"
+		String xmlString =  "<?xml version=\"1.0\" encoding=\"GBK\" standalone=\"no\"?>"
 				+ xstream.toXML(tranDataObject)
 				.replaceAll("\n", "")
 						.replaceAll("\r", "").replaceAll(" ", "")
 						;
-		;
+		System.out.println("<?xml version=\"1.0\" encoding=\"GBK\" standalone=\"no\"?>"
+				+ xstream.toXML(tranDataObject));
 		this.setTranData(xmlString);
 		
 		byte[] src = xmlString.getBytes();

@@ -25,7 +25,7 @@ public class IcbcB2cV1_0_0_11TranDataCustom extends AbstractPayObject {
 	 * ，按上送金额扣帐。
 	 */
 	@PayField(required = true, length = 1)
-	private String verifyJoinFlag = "1";
+	private String verifyJoinFlag = "0";
 
 	/**
 	 * 选输，默认为中文版取值：“EN_US”为英文版；取值：“ZH_CN”或其他为中文版。

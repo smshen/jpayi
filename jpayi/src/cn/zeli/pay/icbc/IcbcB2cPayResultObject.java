@@ -180,8 +180,8 @@ public class IcbcB2cPayResultObject extends AbstractPayResultObject {
 			// 返回验签结果，返回“0”表示验签成功；返回不为“0”表示验签失败。
 			int r = ReturnValue.verifySign(s.getBytes(), s.getBytes().length, decCert, decSign);
 			
-			if (r == 0)
-				return true;
+			return (r == 0);
+//				return true;
 		} catch (Exception e) {
 			// log
 			e.printStackTrace();
