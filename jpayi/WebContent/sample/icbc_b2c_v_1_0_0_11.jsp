@@ -39,7 +39,7 @@ c.setVerifyJoinFlag("0");
 
 IcbcB2cV1_0_0_11TranDataMessage m = new IcbcB2cV1_0_0_11TranDataMessage();
 m.setMerURL(path + "/pay/notify/icbc/b2cV1_0_0_11/server");
-m.setMerCustomIp("221.2.219.114");
+m.setMerCustomIp(cn.zeli.util.HttpUtils.getRemoteIpAddress(request));
 td.setMessage(m);
 
 icbcB2c.setTranDataObject(td);
