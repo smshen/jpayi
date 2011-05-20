@@ -123,36 +123,28 @@ public class IcbcB2cV1_0_0_11PayObject extends AbstractPayObject {
 //				FileUtil.getClasspath() + "/cert/icbc/b2c/lxhg.crt")));// TODO 将 key 路径 在配置里面读取
 		
 		FileInputStream fis = null;
-        String retStr = "";        
+		String retStr = "";
 
-        try
-        {
-            fis = new FileInputStream(FileUtil.getClasspath() + "/cert/icbc/b2c/lxhg.crt");
-            byte[] bcrt = new byte[fis.available()];
-            fis.read(bcrt);
-            
-            retStr = Base64.encode(bcrt);
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-        finally
-        {
-            try
-            {
-                if (fis != null)
-                {
-                    fis.close();
-                }
-            }
-            catch (IOException e)
-            {
-                e.printStackTrace();
-            }
-        }
-        
-        return retStr;
+		try {
+			fis = new FileInputStream(FileUtil.getClasspath()
+					+ "/cert/icbc/b2c/lxhg.crt");
+			byte[] bcrt = new byte[fis.available()];
+			fis.read(bcrt);
+
+			retStr = Base64.encode(bcrt);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (fis != null) {
+					fis.close();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return retStr;
 		
 	}
 	
